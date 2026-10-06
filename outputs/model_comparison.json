@@ -1,0 +1,14 @@
+{
+  "text_only": {
+    "aspect_accuracy": 0.7536231884057971,
+    "aspect_macro_f1": 0.14325068870523416,
+    "severity_accuracy": 0.3115942028985507,
+    "severity_macro_f1": 0.17955802803048931
+  },
+  "multimodal": {
+    "aspect_accuracy": 0.7536231884057971,
+    "aspect_macro_f1": 0.14325068870523416,
+    "severity_accuracy": 0.36231884057971014,
+    "severity_macro_f1": 0.2110161768056505
+  }
+}

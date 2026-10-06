@@ -1,0 +1,27 @@
+{
+  "total_samples": 915,
+  "valid_samples": 915,
+  "removed_samples": 0,
+  "missing_text_count": 0,
+  "missing_image_count": 1,
+  "saved_images_count": 914,
+  "aspect_distribution": {
+    "Software": 693,
+    "Hardware": 90,
+    "Quality": 57,
+    "Service": 56,
+    "Price": 10,
+    "Packaging": 9
+  },
+  "severity_distribution": {
+    "Blame": 279,
+    "Disapproval": 269,
+    "No Explicit Reproach": 211,
+    "Accusation": 156
+  },
+  "splits": {
+    "train": 640,
+    "validation": 137,
+    "test": 138
+  }
+}

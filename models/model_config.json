@@ -1,0 +1,24 @@
+{
+  "model_name": "distilbert-base-uncased",
+  "image_model": "resnet18",
+  "max_length": 128,
+  "batch_size": 16,
+  "learning_rate": 3e-05,
+  "epochs": 3,
+  "dropout": 0.2,
+  "device": "cpu",
+  "aspect_classes": [
+    "Software",
+    "Hardware",
+    "Quality",
+    "Service",
+    "Price",
+    "Packaging"
+  ],
+  "severity_classes": [
+    "No Explicit Reproach",
+    "Disapproval",
+    "Accusation",
+    "Blame"
+  ]
+}

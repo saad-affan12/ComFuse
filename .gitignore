@@ -1,0 +1,25 @@
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.cache/
+
+# Raw dataset files & bulky extracted images (fetch via python -m src.preprocessing)
+data/raw/
+data/processed/images/
+
+# Large model weights (keep lightweight configs & training history)
+models/*.pt
+models/**/*.pt
+*.pth
+
+# Logs and temporary files
+outputs/*.log
+*.tmp
+.env

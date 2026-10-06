@@ -1,0 +1,30 @@
+{
+  "aspect2id": {
+    "Software": 0,
+    "Hardware": 1,
+    "Quality": 2,
+    "Service": 3,
+    "Price": 4,
+    "Packaging": 5
+  },
+  "id2aspect": {
+    "0": "Software",
+    "1": "Hardware",
+    "2": "Quality",
+    "3": "Service",
+    "4": "Price",
+    "5": "Packaging"
+  },
+  "severity2id": {
+    "No Explicit Reproach": 0,
+    "Disapproval": 1,
+    "Accusation": 2,
+    "Blame": 3
+  },
+  "id2severity": {
+    "0": "No Explicit Reproach",
+    "1": "Disapproval",
+    "2": "Accusation",
+    "3": "Blame"
+  }
+}
