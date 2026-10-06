@@ -243,6 +243,42 @@ ComFuse/
 
 ---
 
+## 🚀 Deployment
+
+### Production Architecture
+
+```
+User
+ ↓
+Vercel React Frontend (https://comfuse.vercel.app)
+ ↓ HTTPS
+Railway FastAPI Backend (https://comfuse-api.up.railway.app)
+ ↓
+Existing ComFuse Inference Pipeline (src/inference.py)
+ ↓
+DistilBERT + ResNet-18 (models/best_multimodal_model.pt)
+ ↓
+Aspect + Severity Predictions
+```
+
+### Deployment Configuration Summary
+
+- **FastAPI Backend (Railway):**
+  - **Start Command:** `uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}`
+  - **Health Check:** `GET /health` (returns `{"status": "healthy", "service": "comfuse-api"}`)
+  - **Environment Variables:** `CORS_ORIGINS=https://your-frontend.vercel.app,http://localhost:5173`
+- **React Frontend (Vercel):**
+  - **Root Directory:** `frontend`
+  - **Build Command:** `npm run build`
+  - **Output Directory:** `dist`
+  - **Environment Variables:** `VITE_API_URL=https://your-backend.up.railway.app`
+- **Model Weights Handling:**
+  - Tracked via Git LFS (`.gitattributes`) or served remotely via `MODEL_CHECKPOINT_URL`.
+
+For full step-by-step instructions, see the dedicated [Deployment Guide](docs/DEPLOYMENT.md).
+
+---
+
 ## ⚠️ Troubleshooting
 
 1. **Backend Shows "Backend Offline" in Frontend:**

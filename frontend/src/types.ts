@@ -10,7 +10,16 @@ export interface PredictionHeadResult {
 
 export interface PredictionResponse {
   success: boolean;
+  mode?: 'multimodal' | 'text-only';
   prediction_mode: 'multimodal' | 'text-only';
+  prediction?: {
+    aspect: { label: string; confidence: number };
+    severity: { label: string; confidence: number };
+  };
+  probabilities?: {
+    aspect: ProbabilityDistribution;
+    severity: ProbabilityDistribution;
+  };
   aspect: PredictionHeadResult;
   severity: PredictionHeadResult;
   metadata?: {
@@ -22,6 +31,7 @@ export interface PredictionResponse {
 
 export interface HealthResponse {
   status: 'healthy' | 'loading' | 'offline';
+  service?: string;
   model: string;
   device: string;
 }

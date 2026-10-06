@@ -25,6 +25,7 @@ export function App() {
   const [activeTab, setActiveTab] = useState<'analyze' | 'architecture' | 'about'>('analyze');
   const [health, setHealth] = useState<HealthResponse>({
     status: 'loading',
+    service: 'comfuse-api',
     model: 'ComFuse',
     device: 'cpu',
   });
@@ -38,7 +39,7 @@ export function App() {
   const [examples, setExamples] = useState<ExampleComplaint[]>([]);
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
-  // 1. Periodic Health Check & Initial Load
+  // 1. Initial Health Check on Application Load (Non-aggressive, single check)
   const checkHealth = useCallback(async () => {
     const res = await fetchHealth();
     setHealth(res);
@@ -46,8 +47,6 @@ export function App() {
 
   useEffect(() => {
     checkHealth();
-    const interval = setInterval(checkHealth, 15000);
-    return () => clearInterval(interval);
   }, [checkHealth]);
 
   // 2. Fetch Examples on Mount
@@ -101,6 +100,12 @@ export function App() {
 
     try {
       const res = await sendPrediction(cleanText, imageFile);
+      
+      // Validate response shape
+      if (!res || !res.aspect || !res.severity) {
+        throw new Error('Malformed API response received from model server.');
+      }
+
       setPrediction(res);
 
       // Prepend to in-memory session history (max 5)
@@ -108,7 +113,7 @@ export function App() {
         id: String(Date.now()),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
         textSnippet: cleanText.length > 70 ? `${cleanText.substring(0, 70)}...` : cleanText,
-        mode: res.prediction_mode,
+        mode: res.mode || res.prediction_mode,
         aspect: res.aspect.label,
         aspectConfidence: res.aspect.confidence,
         severity: res.severity.label,
@@ -119,20 +124,30 @@ export function App() {
       setHistory((prev) => [newItem, ...prev.slice(0, 4)]);
     } catch (err: any) {
       console.error('Prediction API Error:', err);
-      if (err.response) {
+
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setErrorMessage('Request timed out. The model inference server took longer than expected to respond.');
+      } else if (err.response) {
+        const statusCode = err.response.status;
         const detail = err.response.data?.detail;
-        if (typeof detail === 'string') {
-          setErrorMessage(detail);
+
+        if (statusCode === 400) {
+          setErrorMessage(typeof detail === 'string' ? detail : 'Invalid input provided. Please verify complaint text or image format.');
+        } else if (statusCode === 413) {
+          setErrorMessage('The uploaded image exceeds the 10 MB maximum upload limit.');
+        } else if (statusCode === 500) {
+          setErrorMessage('An unexpected error occurred during model inference. Please try again.');
+        } else if (statusCode === 503) {
+          setErrorMessage('The model is currently initializing. Please retry in a few moments.');
         } else {
-          setErrorMessage('Failed to analyze complaint. Please check your input and try again.');
+          setErrorMessage(typeof detail === 'string' ? detail : `Server returned error (${statusCode}). Please try again.`);
         }
       } else if (err.request) {
         setErrorMessage(
-          'Unable to connect to ComFuse API. Make sure the backend is running on ' +
-            API_BASE_URL
+          `Unable to connect to ComFuse backend at ${API_BASE_URL}. Ensure the backend service is deployed and running.`
         );
       } else {
-        setErrorMessage('An unexpected error occurred. Please try again.');
+        setErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
       }
     } finally {
       setIsLoading(false);

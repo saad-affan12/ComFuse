@@ -5,21 +5,39 @@ venv/
 
 # Python bytecode and caches
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 .pytest_cache/
 .cache/
 
-# Raw dataset files & bulky extracted images (fetch via python -m src.preprocessing)
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Frontend build outputs and dependencies
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# Raw bulky dataset images
 data/raw/
 data/processed/images/
 
-# Large model weights (keep lightweight configs & training history)
+# Local logs and temporary files
+outputs/*.log
+*.tmp
+
+# Large model binaries without Git LFS (tracked via .gitattributes with git-lfs)
+# If using Git LFS, stage with: git add -f models/best_multimodal_model.pt
 models/*.pt
 models/**/*.pt
 *.pth
-
-# Logs and temporary files
-outputs/*.log
-*.tmp
-.env
