@@ -57,16 +57,16 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({ history }) => {
                     </span>
                   </td>
                   <td className="py-2.5 px-3 max-w-[260px] truncate text-slate-300 font-normal">
-                    {item.textSnippet}
+                    {item.text}
                   </td>
                   <td className="py-2.5 px-3 whitespace-nowrap">
-                    <span className="font-semibold text-slate-100">{item.aspect}</span>
+                    <span className="font-semibold text-slate-100">{item.aspectLabel}</span>
                     <span className="ml-1.5 text-[10px] text-indigo-400 font-mono">
                       {(item.aspectConfidence * 100).toFixed(0)}%
                     </span>
                   </td>
                   <td className="py-2.5 px-3 whitespace-nowrap">
-                    <span className="font-semibold text-slate-100">{item.severity}</span>
+                    <span className="font-semibold text-slate-100">{item.severityLabel}</span>
                     <span className="ml-1.5 text-[10px] text-amber-400 font-mono">
                       {(item.severityConfidence * 100).toFixed(0)}%
                     </span>

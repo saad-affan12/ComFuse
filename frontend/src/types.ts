@@ -45,14 +45,20 @@ export interface ExampleComplaint {
   severity: string;
 }
 
-export interface HistoryItem {
+export interface AnalysisRecord {
   id: string;
   timestamp: string;
-  textSnippet: string;
+  text: string;
+  imagePresent: boolean;
   mode: 'multimodal' | 'text-only';
-  aspect: string;
+  aspectLabel: string;
   aspectConfidence: number;
-  severity: string;
+  severityLabel: string;
   severityConfidence: number;
-  hasImage: boolean;
+  aspectProbabilities: ProbabilityDistribution;
+  severityProbabilities: ProbabilityDistribution;
 }
+
+export type HistoryItem = AnalysisRecord;
+
+export type NavPage = 'analyze' | 'dashboard' | 'history' | 'how-it-works' | 'about';

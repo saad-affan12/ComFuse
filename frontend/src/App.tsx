@@ -1,28 +1,26 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Navbar } from './components/Navbar';
-import { HeroHeader } from './components/HeroHeader';
-import { ComplaintInput } from './components/ComplaintInput';
-import { PredictionResult } from './components/PredictionResult';
-import { ArchitectureDiagram } from './components/ArchitectureDiagram';
-import { ExampleCards } from './components/ExampleCards';
-import { SessionHistory } from './components/SessionHistory';
-import { AboutTab } from './components/AboutTab';
+import { Sidebar } from './components/Sidebar';
+import { TopBar } from './components/TopBar';
+import { RecordDetailModal } from './components/RecordDetailModal';
+import { AnalyzePage } from './pages/AnalyzePage';
+import { DashboardPage } from './pages/DashboardPage';
+import { HistoryPage } from './pages/HistoryPage';
+import { HowItWorksPage } from './pages/HowItWorksPage';
+import { AboutPage } from './pages/AboutPage';
 import type {
+  NavPage,
   HealthResponse,
-  PredictionResponse,
   ExampleComplaint,
-  HistoryItem,
+  AnalysisRecord,
 } from './types';
-import {
-  fetchHealth,
-  fetchExamples,
-  sendPrediction,
-  getImageUrl,
-  API_BASE_URL,
-} from './api';
+import { fetchHealth, fetchExamples } from './api';
+import { getHistory, deleteRecord, clearHistory } from './storage';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'analyze' | 'architecture' | 'about'>('analyze');
+  const [currentPage, setCurrentPage] = useState<NavPage>('analyze');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [selectedRecord, setSelectedRecord] = useState<AnalysisRecord | null>(null);
+
   const [health, setHealth] = useState<HealthResponse>({
     status: 'loading',
     service: 'comfuse-api',
@@ -30,16 +28,16 @@ export function App() {
     device: 'cpu',
   });
 
-  const [text, setText] = useState<string>('');
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [prediction, setPrediction] = useState<PredictionResponse | null>(null);
   const [examples, setExamples] = useState<ExampleComplaint[]>([]);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [history, setHistory] = useState<AnalysisRecord[]>([]);
 
-  // 1. Initial Health Check on Application Load (Non-aggressive, single check)
+  // 1. Initial LocalStorage load
+  useEffect(() => {
+    const loaded = getHistory();
+    setHistory(loaded);
+  }, []);
+
+  // 2. Health check on application mount (non-aggressive, single check)
   const checkHealth = useCallback(async () => {
     const res = await fetchHealth();
     setHealth(res);
@@ -49,7 +47,7 @@ export function App() {
     checkHealth();
   }, [checkHealth]);
 
-  // 2. Fetch Examples on Mount
+  // 3. Load example cases from backend API on mount
   useEffect(() => {
     const loadExamples = async () => {
       const data = await fetchExamples();
@@ -58,186 +56,106 @@ export function App() {
     loadExamples();
   }, []);
 
-  // 3. Select an Example
-  const handleSelectExample = async (example: ExampleComplaint) => {
-    setText(example.text);
-    setErrorMessage(null);
+  // 4. Handle newly saved analysis record
+  const handleAnalysisSaved = (newRecord: AnalysisRecord) => {
+    setHistory((prev) => [newRecord, ...prev.filter((r) => r.id !== newRecord.id)].slice(0, 100));
+  };
 
-    if (example.image_filename) {
-      try {
-        const fullUrl = getImageUrl(example.image_filename);
-        const res = await fetch(fullUrl);
-        if (res.ok) {
-          const blob = await res.blob();
-          const file = new File([blob], example.image_filename, { type: blob.type || 'image/jpeg' });
-          setImageFile(file);
-          setImagePreview(URL.createObjectURL(blob));
-        } else {
-          setImageFile(null);
-          setImagePreview(null);
-        }
-      } catch (err) {
-        console.warn('Failed to load example image blob:', err);
-        setImageFile(null);
-        setImagePreview(null);
-      }
-    } else {
-      setImageFile(null);
-      setImagePreview(null);
+  // 5. Handle single record deletion
+  const handleDeleteRecord = (id: string) => {
+    const updated = deleteRecord(id);
+    setHistory(updated);
+    if (selectedRecord?.id === id) {
+      setSelectedRecord(null);
     }
   };
 
-  // 4. Handle Analysis Submission
-  const handleAnalyze = async () => {
-    const cleanText = text.trim();
-    if (!cleanText) {
-      setErrorMessage('Please enter a complaint before analyzing.');
-      return;
-    }
-
-    setIsLoading(true);
-    setErrorMessage(null);
-
-    try {
-      const res = await sendPrediction(cleanText, imageFile);
-      
-      // Validate response shape
-      if (!res || !res.aspect || !res.severity) {
-        throw new Error('Malformed API response received from model server.');
-      }
-
-      setPrediction(res);
-
-      // Prepend to in-memory session history (max 5)
-      const newItem: HistoryItem = {
-        id: String(Date.now()),
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-        textSnippet: cleanText.length > 70 ? `${cleanText.substring(0, 70)}...` : cleanText,
-        mode: res.mode || res.prediction_mode,
-        aspect: res.aspect.label,
-        aspectConfidence: res.aspect.confidence,
-        severity: res.severity.label,
-        severityConfidence: res.severity.confidence,
-        hasImage: Boolean(imageFile),
-      };
-
-      setHistory((prev) => [newItem, ...prev.slice(0, 4)]);
-    } catch (err: any) {
-      console.error('Prediction API Error:', err);
-
-      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
-        setErrorMessage('Request timed out. The model inference server took longer than expected to respond.');
-      } else if (err.response) {
-        const statusCode = err.response.status;
-        const detail = err.response.data?.detail;
-
-        if (statusCode === 400) {
-          setErrorMessage(typeof detail === 'string' ? detail : 'Invalid input provided. Please verify complaint text or image format.');
-        } else if (statusCode === 413) {
-          setErrorMessage('The uploaded image exceeds the 10 MB maximum upload limit.');
-        } else if (statusCode === 500) {
-          setErrorMessage('An unexpected error occurred during model inference. Please try again.');
-        } else if (statusCode === 503) {
-          setErrorMessage('The model is currently initializing. Please retry in a few moments.');
-        } else {
-          setErrorMessage(typeof detail === 'string' ? detail : `Server returned error (${statusCode}). Please try again.`);
-        }
-      } else if (err.request) {
-        setErrorMessage(
-          `Unable to connect to ComFuse backend at ${API_BASE_URL}. Ensure the backend service is deployed and running.`
-        );
-      } else {
-        setErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
-      }
-    } finally {
-      setIsLoading(false);
-    }
+  // 6. Handle clearing all history
+  const handleClearHistory = () => {
+    clearHistory();
+    setHistory([]);
+    setSelectedRecord(null);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#030712] text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-[#07070b] text-zinc-100 flex overflow-x-hidden selection:bg-indigo-500/30 selection:text-indigo-200">
       
-      {/* Navbar */}
-      <Navbar
+      {/* Sidebar Navigation */}
+      <Sidebar
+        currentPage={currentPage}
+        onNavigate={setCurrentPage}
         health={health}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1">
-        {activeTab === 'analyze' && (
-          <div>
-            <HeroHeader />
+      {/* Main Content Area (offset by 64 (256px) on lg) */}
+      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
+        
+        {/* Subtle Ambient Radial Glow inspired by reference image */}
+        <div className="absolute top-0 left-0 right-0 h-96 pointer-events-none ambient-glow" />
+        <div className="absolute top-0 left-1/4 right-1/4 h-64 pointer-events-none ambient-glow-cyan" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-              
-              {/* TWO-COLUMN ANALYSIS WORKSPACE */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
-                {/* Left Column: Input Form (6 cols on lg) */}
-                <div className="lg:col-span-6 space-y-6">
-                  <ComplaintInput
-                    text={text}
-                    setText={setText}
-                    imageFile={imageFile}
-                    setImageFile={setImageFile}
-                    imagePreview={imagePreview}
-                    setImagePreview={setImagePreview}
-                    onAnalyze={handleAnalyze}
-                    isLoading={isLoading}
-                    errorMessage={errorMessage}
-                  />
+        {/* Top Bar */}
+        <TopBar
+          currentPage={currentPage}
+          health={health}
+          onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+        />
 
-                  {/* Try an Example */}
-                  <ExampleCards
-                    examples={examples}
-                    onSelectExample={handleSelectExample}
-                    isLoading={isLoading}
-                  />
-                </div>
+        {/* Page Container */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 relative z-10 max-w-7xl w-full mx-auto">
+          {currentPage === 'analyze' && (
+            <AnalyzePage
+              examples={examples}
+              onAnalysisSaved={handleAnalysisSaved}
+            />
+          )}
 
-                {/* Right Column: Prediction Results (6 cols on lg) */}
-                <div className="lg:col-span-6 space-y-6">
-                  <PredictionResult
-                    prediction={prediction}
-                    isLoading={isLoading}
-                  />
+          {currentPage === 'dashboard' && (
+            <DashboardPage
+              history={history}
+              onSelectRecord={setSelectedRecord}
+              onNavigateToAnalyze={() => setCurrentPage('analyze')}
+            />
+          )}
 
-                  {/* Expandable Architecture Diagram */}
-                  <ArchitectureDiagram />
-                </div>
+          {currentPage === 'history' && (
+            <HistoryPage
+              history={history}
+              onSelectRecord={setSelectedRecord}
+              onDeleteRecord={handleDeleteRecord}
+              onClearHistory={handleClearHistory}
+              onNavigateToAnalyze={() => setCurrentPage('analyze')}
+            />
+          )}
 
-              </div>
+          {currentPage === 'how-it-works' && <HowItWorksPage />}
 
-              {/* In-Memory Session History */}
-              <div className="pt-4">
-                <SessionHistory history={history} />
-              </div>
+          {currentPage === 'about' && <AboutPage />}
+        </main>
 
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'architecture' && <AboutTab tab="architecture" />}
-        {activeTab === 'about' && <AboutTab tab="about" />}
-      </main>
-
-      {/* Footer */}
-      <footer className="mt-auto border-t border-slate-900 bg-slate-950/60 py-6 text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* Minimal Footer */}
+        <footer className="border-t border-white/[0.05] bg-[#07070b]/60 py-4 px-6 text-[11px] text-zinc-400 flex flex-col sm:flex-row items-center justify-between gap-2 relative z-10">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-300">COMFUSE</span>
+            <span className="font-semibold text-zinc-300">COMFUSE</span>
             <span>•</span>
             <span>Multimodal Customer Complaint Intelligence</span>
           </div>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>Frozen Checkpoint: <code className="text-slate-300 font-mono">best_multimodal_model.pt</code></span>
+          <div className="flex items-center gap-3 text-zinc-400 font-mono">
+            <span>DistilBERT + ResNet-18</span>
             <span>•</span>
             <span>FastAPI + React TypeScript</span>
           </div>
-        </div>
-      </footer>
+        </footer>
+
+      </div>
+
+      {/* Detail Inspection Modal */}
+      <RecordDetailModal
+        record={selectedRecord}
+        onClose={() => setSelectedRecord(null)}
+      />
 
     </div>
   );
