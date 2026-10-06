@@ -11,7 +11,7 @@ import urllib.request
 from contextlib import asynccontextmanager
 from typing import Dict, Optional, List
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile, status
+from fastapi import FastAPI, APIRouter, File, Form, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
@@ -136,15 +136,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static demo images if present
-demo_images_dir = os.path.join(BASE_DIR, "assets", "demo_images")
-if os.path.exists(demo_images_dir):
-    app.mount("/assets/demo_images", StaticFiles(directory=demo_images_dir), name="demo_images")
+api_router = APIRouter()
 
 
-@app.get("/health", summary="Health Check")
+@api_router.get("/health", summary="Health Check")
 async def health_check():
-    """Liveness and readiness health check endpoint for Railway and frontend."""
+    """Liveness and readiness health check endpoint for Railway, Vercel, and frontend."""
     global predictor
     is_ready = predictor is not None
     return {
@@ -155,13 +152,13 @@ async def health_check():
     }
 
 
-@app.get("/examples", summary="Curated Test Examples")
+@api_router.get("/examples", summary="Curated Test Examples")
 async def get_examples():
     """Retrieve 5 pre-curated held-out test samples for 1-click evaluation."""
     return {"examples": REAL_EXAMPLES}
 
 
-@app.post("/predict", summary="Classify Customer Complaint")
+@api_router.post("/predict", summary="Classify Customer Complaint")
 async def predict_complaint(
     text: str = Form(default="", description="Customer complaint text"),
     image: Optional[UploadFile] = File(None, description="Optional complaint screenshot/image")
@@ -287,3 +284,17 @@ async def predict_complaint(
             "explanation": raw_result.get("explanation", "")
         }
     }
+
+
+# Include routes at root (e.g. /health, /predict) for Railway and backwards compatibility
+app.include_router(api_router)
+
+# Include routes under /api (e.g. /api/health, /api/predict) for Vercel multi-service rewrites
+app.include_router(api_router, prefix="/api")
+
+# Mount demo images at both /assets/demo_images and /api/assets/demo_images
+demo_images_dir = os.path.join(BASE_DIR, "assets", "demo_images")
+if os.path.exists(demo_images_dir):
+    app.mount("/assets/demo_images", StaticFiles(directory=demo_images_dir), name="demo_images")
+    app.mount("/api/assets/demo_images", StaticFiles(directory=demo_images_dir), name="api_demo_images")
+

@@ -2,8 +2,11 @@ import axios from 'axios';
 import type { HealthResponse, PredictionResponse, ExampleComplaint } from './types';
 
 // Strip any trailing slash from VITE_API_URL
+// Defaults to '/api' in production (Vercel multi-service rewrite), or 'http://localhost:8000' in local dev
 const rawBase = import.meta.env.VITE_API_URL;
-export const API_BASE_URL = (rawBase ? rawBase.replace(/\/+$/, '') : 'http://localhost:8000');
+export const API_BASE_URL = rawBase
+  ? rawBase.replace(/\/+$/, '')
+  : (import.meta.env.DEV ? 'http://localhost:8000' : '/api');
 
 const client = axios.create({
   baseURL: API_BASE_URL,
