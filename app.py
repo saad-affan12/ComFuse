@@ -1,4 +1,10 @@
-"""Interactive Gradio Web Application for Multimodal Customer Complaint Classification."""
+"""[LEGACY] Interactive Gradio Web Application for Multimodal Customer Complaint Classification.
+
+NOTE: This Gradio UI has been superseded by the production React + FastAPI frontend.
+- Official Frontend: frontend/ (React + Vite + TypeScript + Tailwind CSS)
+- Official Backend API: backend/main.py (FastAPI + Uvicorn)
+This file is preserved for backwards compatibility and fallback debugging.
+"""
 import os
 import sys
 

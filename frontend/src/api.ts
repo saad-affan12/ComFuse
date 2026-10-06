@@ -1,0 +1,56 @@
+import axios from 'axios';
+import type { HealthResponse, PredictionResponse, ExampleComplaint } from './types';
+
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+const client = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 45000,
+});
+
+export async function fetchHealth(): Promise<HealthResponse> {
+  try {
+    const res = await client.get<HealthResponse>('/health');
+    return res.data;
+  } catch {
+    return {
+      status: 'offline',
+      model: 'ComFuse',
+      device: 'unknown'
+    };
+  }
+}
+
+export async function fetchExamples(): Promise<ExampleComplaint[]> {
+  try {
+    const res = await client.get<{ examples: ExampleComplaint[] }>('/examples');
+    return res.data.examples;
+  } catch (err) {
+    console.warn('Failed to load examples from backend:', err);
+    return [];
+  }
+}
+
+export async function sendPrediction(
+  text: string,
+  imageFile?: File | null
+): Promise<PredictionResponse> {
+  const formData = new FormData();
+  formData.append('text', text);
+
+  if (imageFile) {
+    formData.append('image', imageFile);
+  }
+
+  const res = await client.post<PredictionResponse>('/predict', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return res.data;
+}
+
+export function getImageUrl(filename: string): string {
+  return `${API_BASE_URL}/assets/demo_images/${filename}`;
+}

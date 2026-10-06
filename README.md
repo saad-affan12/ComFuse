@@ -1,233 +1,257 @@
-# ComFuse: A Multimodal Framework for Customer Complaint Aspect and Severity Classification
+# ComFuse: Multimodal Customer Complaint Classification Using Text-Image Feature Fusion
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.2+-ee4c2c.svg)](https://pytorch.org/)
-[![Transformers](https://img.shields.io/badge/🤗%20Transformers-4.40+-yellow.svg)](https://huggingface.co/docs/transformers)
-[![Gradio](https://img.shields.io/badge/Gradio-Web%20UI-orange.svg)](https://gradio.app/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-19+-61dafb.svg)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8+-646cff.svg)](https://vite.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8.svg)](https://tailwindcss.com/)
 
-An end-to-end multimodal deep learning system that takes customer complaint text alongside complaint screenshots or photos, and simultaneously predicts **Complaint Aspect** (e.g., Software, Hardware, Quality, Service, Price, Packaging) and **Complaint Severity** (No Explicit Reproach, Disapproval, Accusation, Blame).
+**ComFuse** is an end-to-end multimodal customer complaint classification system that fuses textual grievance context with visual evidence (screenshots, photos of physical defects, billing receipts). It simultaneously predicts **Complaint Aspect** (6 categories) and **Complaint Severity** (4 intensity tiers) using a dual-head multitask neural architecture.
 
-Built for Deep Learning course demonstration, featuring a clean **Gradio Web UI**, real trained checkpoints, and fallback support for missing images.
-
----
-
-## 📌 Table of Contents
-1. [Project Overview](#project-overview)
-2. [Problem Statement](#problem-statement)
-3. [Dataset Description & Preprocessing](#dataset-description--preprocessing)
-4. [System Architecture](#system-architecture)
-5. [Installation & Setup](#installation--setup)
-6. [Dataset Preparation](#dataset-preparation)
-7. [Model Training](#model-training)
-8. [Evaluation & Results](#evaluation--results)
-9. [Web Application (Gradio Demo)](#web-application-gradio-demo)
-10. [Example Walkthrough](#example-walkthrough)
-11. [Limitations & Future Scope](#limitations--future-scope)
-12. [Viva Defense Cheatsheet](#viva-defense-cheatsheet)
+The project features a decoupled production-style architecture: a modern **React + Vite + TypeScript** frontend communicating via REST APIs with a **FastAPI** backend serving a frozen, pre-trained **DistilBERT + ResNet-18** multimodal checkpoint.
 
 ---
 
-## 1. Project Overview
-In modern customer service operations (especially on social media like Twitter/X), customer complaints arrive as short, colloquial text often accompanied by screenshots, error dialogues, or hardware photos. Unimodal text models often struggle when texts are vague (e.g., *"Just look at this!"*). 
-
-This project solves that bottleneck by constructing a unified multimodal neural network that fuses **DistilBERT** contextual text embeddings with **ResNet-18** visual feature representations, feeding into dual classification heads for multitask prediction.
-
----
-
-## 2. Problem Statement
-Given an incoming customer complaint tuple $(T, I)$ where:
-- $T$ is the natural language complaint text,
-- $I$ is an optional visual artifact (screenshot or photo, or $\emptyset$ if omitted),
-
-Predict two distinct targets simultaneously:
-1. **Complaint Aspect ($y_{\text{aspect}}$)**: 6 primary classes $\in \{\text{Software}, \text{Hardware}, \text{Quality}, \text{Service}, \text{Price}, \text{Packaging}\}$
-2. **Complaint Severity ($y_{\text{severity}}$)**: 4 complaint severity levels $\in \{\text{No Explicit Reproach}, \text{Disapproval}, \text{Accusation}, \text{Blame}\}$
-
----
-
-## 3. Dataset Description & Preprocessing
-The model is trained on the Hugging Face dataset **`NShreya/Comp4.0`**:
-- **Total Samples:** 915 raw samples
-- **Raw Columns:** `thread_id`, `text`, `image_path` (PIL Images), `aspect`, `severity`
-
-### Data Cleaning & Label Normalization
-- **Text:** Decoded HTML entities (`&gt;`, `&amp;`), normalized whitespace/newlines, preserved punctuation essential for sentiment and syntax.
-- **Aspect Mapping:** The raw dataset contained 51 noisy variations (e.g., `Software\n Quality`, `Harware. Quality`, `Sofware`). These were systematically mapped to the 6 primary classes using deterministic rules:
-  - `Software`: 693 samples (75.7%)
-  - `Hardware`: 90 samples (9.8%)
-  - `Quality`: 57 samples (6.2%)
-  - `Service`: 56 samples (6.1%)
-  - `Price`: 10 samples (1.1%)
-  - `Packaging`: 9 samples (1.0%)
-- **Severity Mapping:** The raw 12 labels were normalized into 4 standard speech-act complaint severity tiers:
-  - `Blame`: 279 samples (30.5%)
-  - `Disapproval`: 269 samples (29.4%)
-  - `No Explicit Reproach`: 211 samples (23.1%)
-  - `Accusation`: 156 samples (17.0%)
-- **Stratified Data Splits:** 
-  - **Train:** 640 samples (70%)
-  - **Validation:** 137 samples (15%)
-  - **Test:** 138 samples (15%)
-  - Stratification on `aspect` ensures minority classes (`Price`, `Packaging`) are represented proportionally in all splits without data leakage.
-- **Missing Image Handling:** 914 of 915 samples have valid images. If an image is absent or unreadable, the pipeline synthesizes a zero tensor $\mathbf{0} \in \mathbb{R}^{3 \times 224 \times 224}$ and applies feature masking ($h_{\text{image}} = \mathbf{0}$).
-
----
-
-## 4. System Architecture
+## 📌 System Architecture
 
 ```
-                       COMPLAINT INPUT
-                     ┌─────────────────┐
-                     │  Complaint Text │
-                     └────────┬────────┘
-                              │
-                    ┌─────────▼─────────┐
-                    │    DistilBERT     │ (Pretrained Transformer)
-                    │ (CLS Token Pool)  │
-                    └─────────┬─────────┘
-                              │ (768-d)
-                    ┌─────────▼─────────┐
-                    │  Linear + LayerNorm│
-                    │   + ReLU + Drop   │
-                    └─────────┬─────────┘
-                              │ Text Features (256-d)
-                              │
-                              ├─────────────────────────────┐
-                              │                             │
-                     ┌────────┴────────┐                    │
-                     │ Complaint Image │                    │
-                     └────────┬────────┘                    │
-                              │                             │
-                    ┌─────────▼─────────┐                   │
-                    │     ResNet-18     │ (Pretrained CNN)  │
-                    │   (Frozen Base)   │                   │
-                    └─────────┬─────────┘                   │
-                              │ (512-d)                     │
-                    ┌─────────▼─────────┐                   │
-                    │  Linear + LayerNorm│                  │
-                    │   + ReLU + Drop   │                   │
-                    └─────────┬─────────┘                   │
-                              │ Image Features (256-d)      │
-                              │ (Zero if missing)           │
-                              │                             │
-                              └──────────────┬──────────────┘
-                                             │
-                                    ┌────────▼────────┐
-                                    │  CONCATENATION  │ (512-d)
-                                    └────────┬────────┘
-                                             │
-                                    ┌────────▼────────┐
-                                    │  Linear + ReLU  │ (256-d bottleneck)
-                                    │   + Dropout     │
-                                    └────────┬────────┘
-                                             │
-                        ┌────────────────────┴────────────────────┐
-                        │                                         │
-               ┌────────▼────────┐                       ┌────────▼────────┐
-               │   Aspect Head   │ (Linear 256 → 6)      │  Severity Head  │ (Linear 256 → 4)
-               └────────┬────────┘                       └────────┬────────┘
-                        │                                         │
-               ┌────────▼────────┐                       ┌────────▼────────┐
-               │ Predicted Aspect│                       │Predicted Severity│
-               └─────────────────┘                       └─────────────────┘
+                 COMFUSE FRONTEND
+           React 19 + Vite + TypeScript
+             (http://localhost:5173)
+                       │
+                       │ REST API (multipart/form-data)
+                       ▼
+                FastAPI BACKEND
+             (http://localhost:8000)
+                       │
+                       │ In-memory inference
+                       ▼
+             src/inference.py (ComplaintPredictor)
+                       │
+                       ▼
+         models/best_multimodal_model.pt
+                       │
+           ┌───────────┴───────────┐
+           ▼                       ▼
+     Aspect Head             Severity Head
+      (6 classes)             (4 classes)
+```
+
+### Multimodal ML Fusion Backbone (Frozen Checkpoint)
+```
+       Complaint Text (128 tokens)            Complaint Image (224x224 RGB)
+                  │                                         │
+                  ▼                                         ▼
+             DistilBERT                                 ResNet-18
+            [CLS] (768-d)                           Conv Backbone (512-d)
+                  │                                         │
+                  ▼                                         ▼
+            Linear (256-d)                            Linear (256-d)
+                  │                                         │
+                  └───────────────────┬─────────────────────┘
+                                      │
+                                      ▼
+                        Concatenation Fusion (512-d)
+                                      │
+                                      ▼
+                        Fusion MLP (256-d, ReLU, Drop)
+                                      │
+                        ┌─────────────┴─────────────┐
+                        ▼                           ▼
+                 Aspect Logits               Severity Logits
+                  (6 classes)                 (4 classes)
 ```
 
 ---
 
-## 5. Installation & Setup
+## 🚀 Quickstart: Running ComFuse Locally
 
-1. **Clone the repository:**
-   ```bash
-   git clone <repo_url>
-   cd Deep_Learning-project
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Prerequisites
+- Python 3.10+ (tested on Python 3.11 / 3.12 / 3.13)
+- Node.js 18+ and npm (tested on Node v24.14)
 
 ---
 
-## 6. Dataset Preparation
-To download `NShreya/Comp4.0` from Hugging Face, run preprocessing, extract and store images, and generate the stratified train/val/test splits:
-```bash
-python -m src.preprocessing
-```
-*Generated artifacts:*
-- `data/processed/full_cleaned.csv`
-- `data/processed/train.csv` (640 rows)
-- `data/processed/val.csv` (137 rows)
-- `data/processed/test.csv` (138 rows)
-- `data/processed/label_mappings.json`
-- `data/processed/images/*.jpg` (local persistent image files)
+### Step 1: Virtual Environment Setup
 
----
+From the repository root directory:
 
-## 7. Model Training
+```powershell
+# Create virtual environment (if not already created)
+python -m venv .venv
 
-### Train Multimodal Model (DistilBERT + ResNet-18)
-```bash
-python src/train.py
+# Activate virtual environment
+# Windows PowerShell:
+.venv\Scripts\Activate.ps1
+# Windows Command Prompt:
+.venv\Scripts\activate.bat
+# Linux / macOS:
+source .venv/bin/activate
+
+# Install backend dependencies
+pip install -r backend/requirements.txt
 ```
 
-### Train Text-Only Baseline Model (DistilBERT Unimodal)
-```bash
-python -c "from src.train import train_and_save_model; train_and_save_model('text_only', epochs=3)"
+---
+
+### Step 2: Start the FastAPI Backend
+
+The backend loads `models/best_multimodal_model.pt` into memory **once** on startup:
+
+```powershell
+.venv\Scripts\python.exe -m uvicorn backend.main:app --reload --port 8000
 ```
 
-*Checkpoints and artifacts saved under:*
-- `models/multimodal/best_model.pt`
-- `models/text_only/best_model.pt`
+Verify backend health at:
+- Health check: `http://localhost:8000/health`
+- Interactive OpenAPI docs: `http://localhost:8000/docs`
 
 ---
 
-## 8. Evaluation & Results
-To compute test set evaluation, classification reports, confusion matrices, and the comparative benchmark:
-```bash
-python src/evaluate.py
+### Step 3: Start the React Frontend
+
+Open a new terminal window:
+
+```powershell
+cd frontend
+npm install
+npm run dev
 ```
 
-Outputs are automatically generated in `outputs/`:
-- `outputs/results.json`: Full numerical metrics (Accuracy, Precision, Recall, Macro F1, Weighted F1).
-- `outputs/aspect_confusion_matrix.png`: Heatmap of Aspect predictions across classes.
-- `outputs/severity_confusion_matrix.png`: Heatmap of Severity predictions.
-- `outputs/multimodal_vs_textonly_comparison.png`: Side-by-side performance bar graph.
+Open your browser at:
+👉 **`http://localhost:5173`**
+
+The UI will automatically connect to `http://localhost:8000` (configured in `frontend/.env`), showing **● Model Online**.
 
 ---
 
-## 9. Web Application (Gradio Demo)
-Launch the interactive demo locally:
-```bash
-python app.py
+## 📡 API Endpoints
+
+### 1. Health Check
+- **`GET /health`**
+- **Response:**
+  ```json
+  {
+    "status": "healthy",
+    "model": "ComFuse",
+    "device": "cpu"
+  }
+  ```
+
+### 2. Predict Customer Complaint
+- **`POST /predict`**
+- **Content-Type:** `multipart/form-data`
+- **Fields:**
+  - `text` (string, required): Customer complaint narrative.
+  - `image` (file, optional): Uploaded image screenshot (PNG, JPG, JPEG, WEBP).
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "prediction_mode": "multimodal",
+    "aspect": {
+      "label": "Software",
+      "confidence": 0.91,
+      "probabilities": {
+        "Software": 0.91,
+        "Hardware": 0.03,
+        "Quality": 0.02,
+        "Service": 0.02,
+        "Price": 0.01,
+        "Packaging": 0.01
+      }
+    },
+    "severity": {
+      "label": "Blame",
+      "confidence": 0.74,
+      "probabilities": {
+        "Blame": 0.74,
+        "Disapproval": 0.15,
+        "No Explicit Reproach": 0.06,
+        "Accusation": 0.05
+      }
+    }
+  }
+  ```
+
+### 3. Real Test Set Examples
+- **`GET /examples`**
+- Returns 5 pre-curated test set complaint cases with real screenshot attachments to test with 1 click.
+
+---
+
+## 💻 Frontend Features
+
+- **Modern SaaS Dashboard:** Clean, responsive, dark-mode design with subtle borders and restrained contrast.
+- **Real-Time Connectivity:** Automatic heartbeat to `GET /health` displaying real-time model readiness.
+- **Multimodal & Text-Only Switching:** Uploading an image triggers multimodal fusion; omitting an image seamlessly triggers text-only fallback.
+- **Full Calibrated Probabilities:** Displays complete horizontal probability distributions for all 6 Aspect categories and all 4 Severity levels directly from the PyTorch model.
+- **1-Click Test Samples:** Built-in test cases taken directly from the held-out evaluation set (`data/processed/test.csv`).
+- **Session Analysis History:** In-memory tracking of the last 5 analyses in the current session (no external database required).
+- **Interactive Architecture Explainer:** Expandable visualization of the DistilBERT + ResNet-18 fusion pipeline.
+
+---
+
+## 📁 Project Structure
+
 ```
-Open your browser at `http://127.0.0.1:7860`.
-
-### UI Highlights:
-- **Interactive Input:** Large text area for complaints + image upload widget.
-- **Dual Predictions:** Real-time Aspect and Severity classification with probability confidence bars.
-- **Dual Modes:** Automatically switches between **Multimodal Mode** (when an image is uploaded) and **Text-Only Mode** (fallback zero visual vector).
-- **1-Click Test Examples:** 5 pre-loaded authentic test samples covering different aspects (Software, Hardware, Quality, Service, Packaging).
+ComFuse/
+├── backend/
+│   ├── main.py                    # FastAPI application, CORS, endpoints, lifespan loader
+│   └── requirements.txt           # Backend-specific Python dependencies
+├── frontend/
+│   ├── src/
+│   │   ├── components/            # UI components (Navbar, HeroHeader, ComplaintInput, etc.)
+│   │   ├── api.ts                 # Axios API client connecting to backend
+│   │   ├── types.ts               # TypeScript interfaces
+│   │   ├── App.tsx                # Main application workspace layout
+│   │   ├── index.css              # Tailwind CSS styles
+│   │   └── main.tsx               # React root entry
+│   ├── public/
+│   ├── .env                       # VITE_API_URL=http://localhost:8000
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── index.html
+├── src/
+│   ├── inference.py               # Core inference engine (ComplaintPredictor)
+│   ├── multimodal_model.py        # PyTorch MultimodalComplaintClassifier
+│   ├── dataset.py                 # Dataset loaders & image transforms
+│   ├── train.py                   # Multitask training loop
+│   └── evaluate.py                # Evaluation & metric calculation
+├── models/
+│   └── best_multimodal_model.pt   # Frozen trained PyTorch model checkpoint
+├── data/
+│   └── processed/                 # Frozen train (640), val (137), test (138) CSV splits
+├── assets/
+│   └── demo_images/               # Real test set screenshots for interactive demo
+├── docs/
+│   ├── frontend_architecture.md   # Detailed architecture documentation
+│   └── viva_notes.md              # Defense preparation & theoretical notes
+├── config.py                      # Global paths, hyperparameters, and class dictionaries
+└── app.py                         # [LEGACY] Preserved Gradio UI fallback
+```
 
 ---
 
-## 10. Example Walkthrough
-1. **Input Text:**
-   > *"Tweet 1. @AppleSupport Oh no I’m just trying to remind you that removing the headphone jack was an awful idea yet another headphone adapter isn’t working"*
-2. **Input Image:** Photo of damaged headphone adapter cable.
-3. **Model Prediction:**
-   - **Aspect:** `Hardware` (~92% confidence)
-   - **Severity:** `Blame` (~85% confidence)
-   - **Mode:** `Multimodal (Text + Image)`
+## 🧪 Model Performance on Held-Out Test Set (138 samples)
+
+| Task | Target Classes | Test Accuracy | Macro F1 | Weighted F1 |
+|:-----|:--------------:|:-------------:|:--------:|:-----------:|
+| **Aspect Classification** | 6 | **76.09%** | **0.4619** | **0.7516** |
+| **Severity Classification** | 4 | **43.48%** | **0.4074** | **0.4294** |
 
 ---
 
-## 11. Limitations & Future Scope
-- **Dataset Size:** 915 samples is relatively modest for multimodal deep learning; fine-tuning a larger dataset would improve minority aspect generalization (`Packaging`, `Price`).
-- **Fusion Complexity:** Concatenation is simple and fast; incorporating **Cross-Attention** mechanisms (e.g., ViT patches attending to text queries) could yield richer representations.
-- **OCR Integration:** Extracting textual error codes printed on uploaded screenshots using OCR would directly enrich the text pathway.
+## ⚠️ Troubleshooting
 
----
+1. **Backend Shows "Backend Offline" in Frontend:**
+   - Verify that the FastAPI backend is running on `http://localhost:8000`.
+   - Test `curl http://localhost:8000/health` in your terminal.
+   - Ensure the `.venv` Python environment is used.
 
-## 12. Viva Defense Cheatsheet
-Refer to [`docs/viva_notes.md`](docs/viva_notes.md) for detailed, course-tailored answers to the 16 core oral examination questions.
+2. **CORS Error in Browser Console:**
+   - The backend allows `http://localhost:5173` and `http://127.0.0.1:5173`. Make sure the frontend is accessed through one of these ports.
+
+3. **Memory / CPU Usage:**
+   - DistilBERT and ResNet-18 execute smoothly on any modern multi-core CPU. The model is loaded once into memory at startup and retained across requests.
