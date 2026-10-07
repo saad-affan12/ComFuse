@@ -78,7 +78,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07070b] text-zinc-100 flex overflow-x-hidden selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-[#f6f5fc] text-zinc-900 flex overflow-x-hidden selection:bg-purple-500/20 selection:text-purple-900">
       
       {/* Sidebar Navigation */}
       <Sidebar
@@ -92,9 +92,9 @@ export function App() {
       {/* Main Content Area (offset by 64 (256px) on lg) */}
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
         
-        {/* Subtle Ambient Radial Glow inspired by reference image */}
-        <div className="absolute top-0 left-0 right-0 h-96 pointer-events-none ambient-glow" />
-        <div className="absolute top-0 left-1/4 right-1/4 h-64 pointer-events-none ambient-glow-cyan" />
+        {/* Subtle Ambient Radial Glow inspired by Dribbble reference */}
+        <div className="absolute top-0 right-0 w-[500px] h-[400px] pointer-events-none ambient-glow-purple" />
+        <div className="absolute top-1/3 left-0 w-[400px] h-[300px] pointer-events-none ambient-glow-blue" />
 
         {/* Top Bar */}
         <TopBar
@@ -135,14 +135,14 @@ export function App() {
           {currentPage === 'about' && <AboutPage />}
         </main>
 
-        {/* Minimal Footer */}
-        <footer className="border-t border-white/[0.05] bg-[#07070b]/60 py-4 px-6 text-[11px] text-zinc-400 flex flex-col sm:flex-row items-center justify-between gap-2 relative z-10">
+        {/* Minimal Clean Footer */}
+        <footer className="border-t border-purple-100 bg-white/70 backdrop-blur-sm py-4 px-6 text-[11px] text-zinc-500 flex flex-col sm:flex-row items-center justify-between gap-2 relative z-10">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-zinc-300">COMFUSE</span>
+            <span className="font-bold text-zinc-800">COMFUSE</span>
             <span>•</span>
             <span>Multimodal Customer Complaint Intelligence</span>
           </div>
-          <div className="flex items-center gap-3 text-zinc-400 font-mono">
+          <div className="flex items-center gap-3 text-zinc-500 font-mono">
             <span>DistilBERT + ResNet-18</span>
             <span>•</span>
             <span>FastAPI + React TypeScript</span>

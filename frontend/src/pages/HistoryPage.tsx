@@ -3,11 +3,8 @@ import {
   Search,
   Trash2,
   Eye,
-  FileText,
-  Clock,
-  ArrowUpDown,
   AlertTriangle,
-  Layers
+  History
 } from 'lucide-react';
 import type { AnalysisRecord } from '../types';
 
@@ -47,9 +44,9 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
       const q = search.toLowerCase();
       result = result.filter(
         (r) =>
-          r.text.toLowerCase().includes(q) ||
-          r.aspectLabel.toLowerCase().includes(q) ||
-          r.severityLabel.toLowerCase().includes(q)
+          (r.complaintText || r.text || '').toLowerCase().includes(q) ||
+          (r.aspectLabel || '').toLowerCase().includes(q) ||
+          (r.severityLabel || '').toLowerCase().includes(q)
       );
     }
 
@@ -71,10 +68,10 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
     // Sorting
     result.sort((a, b) => {
       if (sortOption === 'Newest') {
-        return Number(b.id) - Number(a.id);
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
       }
       if (sortOption === 'Oldest') {
-        return Number(a.id) - Number(b.id);
+        return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
       }
       if (sortOption === 'Highest Confidence') {
         return (b.aspectConfidence || 0) - (a.aspectConfidence || 0);
@@ -90,31 +87,31 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
 
   if (history.length === 0) {
     return (
-      <div className="space-y-6 animate-in fade-in duration-200">
+      <div className="space-y-6 animate-in fade-in duration-300 pb-12">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
             Analysis History
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-medium">
             Review and filter previously analyzed customer complaints.
           </p>
         </div>
 
-        <div className="p-12 text-center bg-[#0c0d16] border border-white/[0.08] rounded-2xl flex flex-col items-center justify-center space-y-4">
-          <div className="h-12 w-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-cyan-400">
-            <Layers className="h-6 w-6" />
+        <div className="p-12 text-center dribbble-card bg-white border border-purple-100 flex flex-col items-center justify-center space-y-4">
+          <div className="h-14 w-14 rounded-3xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 shadow-sm">
+            <History className="h-7 w-7" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-sm font-bold text-white">No Complaint History Found</h3>
-            <p className="text-xs text-zinc-400 max-w-sm">
-              Analyzed complaints are stored in local browser memory and displayed here with full classification details.
+            <h3 className="text-sm font-bold text-zinc-900">No Analysis History Yet</h3>
+            <p className="text-xs text-zinc-500 max-w-sm">
+              Your inspected complaint records and multimodal predictions will be stored locally and displayed here.
             </p>
           </div>
           <button
             onClick={onNavigateToAnalyze}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/20 cursor-pointer"
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#9333ea] to-[#7c3aed] text-white text-xs font-bold shadow-md shadow-purple-500/25 hover:shadow-lg transition cursor-pointer"
           >
-            Start New Analysis
+            Analyze First Complaint
           </button>
         </div>
       </div>
@@ -122,285 +119,187 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
   }
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-200">
-      
-      {/* Page Header with Clear History Button */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="space-y-6 animate-in fade-in duration-300 pb-12">
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
             Analysis History
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-            Review, search, and manage previously analyzed customer complaints ({history.length} records).
+          <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-medium">
+            {history.length} saved {history.length === 1 ? 'record' : 'records'} stored in your local session.
           </p>
         </div>
 
         <button
           onClick={() => setShowClearConfirm(true)}
-          className="self-start sm:self-center px-3 py-1.5 rounded-xl border border-rose-900/50 hover:border-rose-700 bg-rose-950/30 text-rose-300 hover:text-white text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold transition shadow-sm cursor-pointer w-fit"
         >
           <Trash2 className="h-3.5 w-3.5" />
-          <span>Clear History</span>
+          <span>Clear All Records</span>
         </button>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-[#0c0d16] border border-white/[0.08] space-y-3">
-        
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="h-4 w-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search complaints, aspects, or severity labels..."
-            className="w-full bg-[#080910] border border-white/[0.07] focus:border-cyan-500 rounded-xl pl-10 pr-4 py-2 text-xs text-zinc-100 placeholder-zinc-400 outline-none"
-          />
-        </div>
-
-        {/* Filters and Sort */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+      {/* Filter Toolbar */}
+      <div className="dribbble-card p-4 sm:p-5 bg-white space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           
-          {/* Aspect Filter */}
-          <div>
-            <label className="text-[10px] text-zinc-400 font-semibold uppercase block mb-1">
-              Aspect
-            </label>
-            <select
-              value={aspectFilter}
-              onChange={(e) => setAspectFilter(e.target.value)}
-              className="w-full bg-[#080910] border border-white/[0.07] rounded-lg px-2.5 py-1.5 text-zinc-200 outline-none cursor-pointer"
-            >
-              {ASPECT_OPTIONS.map((opt) => (
-                <option key={opt} value={opt} className="bg-[#0c0d16]">
-                  {opt}
-                </option>
-              ))}
-            </select>
+          {/* Search Box */}
+          <div className="relative lg:col-span-2">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-purple-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by keywords, aspect, or severity..."
+              className="w-full pl-9 pr-3.5 py-2 text-xs bg-purple-50/30 border border-purple-100 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-200 text-zinc-800 placeholder-zinc-400"
+            />
           </div>
 
-          {/* Severity Filter */}
-          <div>
-            <label className="text-[10px] text-zinc-400 font-semibold uppercase block mb-1">
-              Severity
-            </label>
-            <select
-              value={severityFilter}
-              onChange={(e) => setSeverityFilter(e.target.value)}
-              className="w-full bg-[#080910] border border-white/[0.07] rounded-lg px-2.5 py-1.5 text-zinc-200 outline-none cursor-pointer"
-            >
-              {SEVERITY_OPTIONS.map((opt) => (
-                <option key={opt} value={opt} className="bg-[#0c0d16]">
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Aspect Select */}
+          <select
+            value={aspectFilter}
+            onChange={(e) => setAspectFilter(e.target.value)}
+            className="px-3.5 py-2 text-xs bg-purple-50/30 border border-purple-100 rounded-full text-zinc-700 font-semibold focus:outline-none focus:ring-2 focus:ring-purple-200"
+          >
+            {ASPECT_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>Aspect: {opt}</option>
+            ))}
+          </select>
 
-          {/* Mode Filter */}
-          <div>
-            <label className="text-[10px] text-zinc-400 font-semibold uppercase block mb-1">
-              Mode
-            </label>
-            <select
-              value={modeFilter}
-              onChange={(e) => setModeFilter(e.target.value)}
-              className="w-full bg-[#080910] border border-white/[0.07] rounded-lg px-2.5 py-1.5 text-zinc-200 outline-none capitalize cursor-pointer"
-            >
-              {MODE_OPTIONS.map((opt) => (
-                <option key={opt} value={opt} className="bg-[#0c0d16]">
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Severity Select */}
+          <select
+            value={severityFilter}
+            onChange={(e) => setSeverityFilter(e.target.value)}
+            className="px-3.5 py-2 text-xs bg-purple-50/30 border border-purple-100 rounded-full text-zinc-700 font-semibold focus:outline-none focus:ring-2 focus:ring-purple-200"
+          >
+            {SEVERITY_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>Severity: {opt}</option>
+            ))}
+          </select>
 
-          {/* Sort By */}
-          <div>
-            <label className="text-[10px] text-zinc-400 font-semibold uppercase block mb-1 flex items-center gap-1">
-              <ArrowUpDown className="h-2.5 w-2.5" />
-              Sort By
-            </label>
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="w-full bg-[#080910] border border-white/[0.07] rounded-lg px-2.5 py-1.5 text-zinc-200 outline-none cursor-pointer"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt} value={opt} className="bg-[#0c0d16]">
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Mode Select */}
+          <select
+            value={modeFilter}
+            onChange={(e) => setModeFilter(e.target.value)}
+            className="px-3.5 py-2 text-xs bg-purple-50/30 border border-purple-100 rounded-full text-zinc-700 font-semibold focus:outline-none focus:ring-2 focus:ring-purple-200"
+          >
+            {MODE_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>Mode: {opt}</option>
+            ))}
+          </select>
+
+          {/* Sort Select */}
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="px-3.5 py-2 text-xs bg-purple-50/30 border border-purple-100 rounded-full text-zinc-700 font-semibold focus:outline-none focus:ring-2 focus:ring-purple-200"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>Sort: {opt}</option>
+            ))}
+          </select>
 
         </div>
-
       </div>
 
-      {/* DESKTOP TABLE VIEW */}
-      <div className="hidden md:block bg-[#0c0d16] border border-white/[0.08] rounded-2xl overflow-hidden">
-        {filteredRecords.length === 0 ? (
-          <div className="p-8 text-center text-xs text-zinc-400">
-            No complaints match the current filter criteria.
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="border-b border-white/[0.06] text-zinc-400 text-[10px] uppercase tracking-wider">
-                  <th className="py-3 px-4 font-semibold">Time</th>
-                  <th className="py-3 px-4 font-semibold">Mode</th>
-                  <th className="py-3 px-4 font-semibold">Complaint Preview</th>
-                  <th className="py-3 px-4 font-semibold">Aspect</th>
-                  <th className="py-3 px-4 font-semibold">Severity</th>
-                  <th className="py-3 px-4 font-semibold text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/[0.04]">
-                {filteredRecords.map((r) => (
-                  <tr
-                    key={r.id}
-                    className="hover:bg-white/[0.03] transition-colors group"
-                  >
-                    <td className="py-3 px-4 whitespace-nowrap text-zinc-400 font-mono text-[11px]">
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="h-3 w-3" />
-                        {r.timestamp}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 whitespace-nowrap">
-                      <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium ${
-                          r.mode === 'multimodal'
-                            ? 'bg-cyan-950/60 text-cyan-300 border border-cyan-800/40'
-                            : 'bg-zinc-800 text-zinc-300'
-                        }`}
-                      >
-                        {r.mode === 'multimodal' ? <Eye className="h-2.5 w-2.5" /> : <FileText className="h-2.5 w-2.5" />}
-                        {r.mode}
-                      </span>
-                    </td>
-                    <td
-                      onClick={() => onSelectRecord(r)}
-                      className="py-3 px-4 max-w-[280px] truncate text-zinc-200 group-hover:text-cyan-300 transition-colors cursor-pointer"
-                    >
-                      {r.text}
-                    </td>
-                    <td className="py-3 px-4 whitespace-nowrap">
-                      <span className="font-semibold text-white">{r.aspectLabel}</span>
-                      <span className="ml-1 text-[10px] text-cyan-400 font-mono">
-                        {(r.aspectConfidence * 100).toFixed(0)}%
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 whitespace-nowrap">
-                      <span className="font-semibold text-white">{r.severityLabel}</span>
-                      <span className="ml-1 text-[10px] text-amber-400 font-mono">
-                        {(r.severityConfidence * 100).toFixed(0)}%
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 whitespace-nowrap text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <button
-                          onClick={() => onSelectRecord(r)}
-                          className="px-2 py-1 rounded bg-white/[0.04] hover:bg-white/[0.1] text-zinc-300 hover:text-white text-[11px] font-medium transition-colors cursor-pointer"
-                        >
-                          View
-                        </button>
-                        <button
-                          onClick={() => onDeleteRecord(r.id)}
-                          className="p-1 rounded text-zinc-400 hover:text-rose-400 hover:bg-rose-950/40 transition-colors cursor-pointer"
-                          title="Delete record"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-
-      {/* MOBILE CARD VIEW */}
-      <div className="md:hidden space-y-3">
-        {filteredRecords.length === 0 ? (
-          <div className="p-6 text-center text-xs text-zinc-400 bg-[#0c0d16] rounded-xl border border-white/[0.08]">
-            No complaints match the filter.
-          </div>
-        ) : (
-          filteredRecords.map((r) => (
-            <div
-              key={r.id}
-              className="p-4 rounded-xl bg-[#0c0d16] border border-white/[0.08] space-y-3"
-            >
-              <div className="flex items-center justify-between text-xs text-zinc-400">
-                <span className="font-mono text-[11px] flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {r.timestamp}
-                </span>
-                <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-medium ${
-                    r.mode === 'multimodal'
-                      ? 'bg-cyan-950 text-cyan-300'
-                      : 'bg-zinc-800 text-zinc-300'
-                  }`}
+      {/* History Table */}
+      <div className="dribbble-card bg-white overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead>
+              <tr className="border-b border-purple-50 bg-purple-50/30 text-zinc-500 uppercase font-mono text-[10px]">
+                <th className="py-3.5 px-4 font-bold">Complaint Text</th>
+                <th className="py-3.5 px-4 font-bold">Modality</th>
+                <th className="py-3.5 px-4 font-bold">Predicted Aspect</th>
+                <th className="py-3.5 px-4 font-bold">Predicted Severity</th>
+                <th className="py-3.5 px-4 font-bold">Timestamp</th>
+                <th className="py-3.5 px-4 font-bold text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-purple-50">
+              {filteredRecords.map((record) => (
+                <tr
+                  key={record.id}
+                  onClick={() => onSelectRecord(record)}
+                  className="hover:bg-purple-50/40 transition cursor-pointer group"
                 >
-                  {r.mode}
-                </span>
-              </div>
-
-              <p
-                onClick={() => onSelectRecord(r)}
-                className="text-xs text-zinc-200 line-clamp-2 cursor-pointer"
-              >
-                {r.text}
-              </p>
-
-              <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-xs">
-                <div>
-                  <span className="font-semibold text-white">{r.aspectLabel}</span>
-                  <span className="text-zinc-400"> • </span>
-                  <span className="font-semibold text-white">{r.severityLabel}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => onSelectRecord(r)}
-                    className="text-xs text-cyan-400 font-semibold cursor-pointer"
-                  >
-                    Details
-                  </button>
-                  <button
-                    onClick={() => onDeleteRecord(r.id)}
-                    className="text-zinc-400 hover:text-rose-400 cursor-pointer"
-                  >
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
+                  <td className="py-3.5 px-4 max-w-sm truncate text-zinc-800 font-semibold">
+                    {record.complaintText || record.text}
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
+                        record.mode === 'multimodal'
+                          ? 'bg-purple-100 border-purple-200 text-purple-700'
+                          : 'bg-zinc-100 border-zinc-200 text-zinc-600'
+                      }`}
+                    >
+                      {record.mode}
+                    </span>
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <span className="font-bold text-purple-700">{record.aspectLabel}</span>
+                    <span className="text-zinc-400 text-[10px] ml-1">
+                      ({((record.aspectConfidence || 0) * 100).toFixed(0)}%)
+                    </span>
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <span className="font-bold text-amber-700">{record.severityLabel}</span>
+                    <span className="text-zinc-400 text-[10px] ml-1">
+                      ({((record.severityConfidence || 0) * 100).toFixed(0)}%)
+                    </span>
+                  </td>
+                  <td className="py-3.5 px-4 text-zinc-500 font-mono text-[11px]">
+                    {new Date(record.timestamp).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                  </td>
+                  <td className="py-3.5 px-4 text-right">
+                    <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        onClick={() => onSelectRecord(record)}
+                        className="p-1.5 rounded-lg text-zinc-400 hover:text-purple-700 hover:bg-purple-100/60 transition cursor-pointer"
+                        title="Inspect record"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => onDeleteRecord(record.id)}
+                        className="p-1.5 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                        title="Delete record"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* Confirmation Modal for Clear History */}
+      {/* Confirmation Modal for Clearing History */}
       {showClearConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-sm bg-[#0e101a] border border-white/[0.1] rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center gap-3 text-rose-400">
-              <AlertTriangle className="h-6 w-6" />
-              <h3 className="text-base font-bold text-white">Clear Analysis History?</h3>
+        <div className="fixed inset-0 z-50 bg-purple-950/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-purple-100 animate-in fade-in zoom-in-95 space-y-4">
+            <div className="flex items-center gap-3 text-rose-600">
+              <div className="p-2.5 rounded-2xl bg-rose-50 border border-rose-100">
+                <AlertTriangle className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-zinc-900">Clear All Analysis History?</h3>
+                <p className="text-xs text-zinc-500 mt-0.5">This action cannot be undone.</p>
+              </div>
             </div>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              This will permanently delete all {history.length} analysis records saved in your current browser session. This action cannot be undone.
-            </p>
-            <div className="flex items-center justify-end gap-2.5 pt-2">
+            <div className="flex items-center justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowClearConfirm(false)}
-                className="px-3.5 py-2 rounded-xl text-xs font-medium text-zinc-300 hover:bg-white/[0.05] cursor-pointer"
+                className="px-4 py-2 rounded-full border border-zinc-200 text-zinc-700 text-xs font-semibold hover:bg-zinc-50 cursor-pointer"
               >
                 Cancel
               </button>
@@ -409,15 +308,14 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
                   onClearHistory();
                   setShowClearConfirm(false);
                 }}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-lg shadow-rose-600/20 cursor-pointer"
+                className="px-4 py-2 rounded-full bg-rose-600 text-white text-xs font-bold shadow-md shadow-rose-600/20 hover:bg-rose-700 cursor-pointer"
               >
-                Yes, Clear All
+                Clear History
               </button>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };

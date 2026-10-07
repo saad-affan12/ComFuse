@@ -1,16 +1,16 @@
 {
   "multimodal": {
     "aspect": {
-      "accuracy": 0.7536231884057971,
-      "precision_macro": 0.12560386473429952,
-      "recall_macro": 0.16666666666666666,
-      "macro_f1": 0.14325068870523416,
-      "weighted_f1": 0.6477422445801893,
+      "accuracy": 0.7463768115942029,
+      "precision_macro": 0.12622549019607843,
+      "recall_macro": 0.16506410256410256,
+      "macro_f1": 0.14305555555555555,
+      "weighted_f1": 0.6468599033816425,
       "classification_report": {
         "Software": {
-          "precision": 0.7536231884057971,
-          "recall": 1.0,
-          "f1-score": 0.859504132231405,
+          "precision": 0.7573529411764706,
+          "recall": 0.9903846153846154,
+          "f1-score": 0.8583333333333333,
           "support": 104.0
         },
         "Hardware": {
@@ -43,82 +43,66 @@
           "f1-score": 0.0,
           "support": 1.0
         },
-        "accuracy": 0.7536231884057971,
+        "accuracy": 0.7463768115942029,
         "macro avg": {
-          "precision": 0.12560386473429952,
-          "recall": 0.16666666666666666,
-          "f1-score": 0.14325068870523416,
+          "precision": 0.12622549019607843,
+          "recall": 0.16506410256410256,
+          "f1-score": 0.14305555555555555,
           "support": 138.0
         },
         "weighted avg": {
-          "precision": 0.5679479101029196,
-          "recall": 0.7536231884057971,
-          "f1-score": 0.6477422445801893,
+          "precision": 0.5707587382779199,
+          "recall": 0.7463768115942029,
+          "f1-score": 0.6468599033816425,
           "support": 138.0
         }
       }
     },
     "severity": {
-      "accuracy": 0.36231884057971014,
-      "precision_macro": 0.2943396226415094,
-      "recall_macro": 0.2817058204768583,
-      "macro_f1": 0.2110161768056505,
-      "weighted_f1": 0.26358716290066403,
+      "accuracy": 0.463768115942029,
+      "precision_macro": 0.4612757034632035,
+      "recall_macro": 0.4733244840713284,
+      "macro_f1": 0.46036792069589527,
+      "weighted_f1": 0.4593424398936215,
       "classification_report": {
         "No Explicit Reproach": {
-          "precision": 0.5,
-          "recall": 0.03225806451612903,
-          "f1-score": 0.06060606060606061,
+          "precision": 0.47619047619047616,
+          "recall": 0.6451612903225806,
+          "f1-score": 0.547945205479452,
           "support": 31.0
         },
         "Disapproval": {
-          "precision": 0.37735849056603776,
-          "recall": 0.8695652173913043,
-          "f1-score": 0.5263157894736842,
+          "precision": 0.53125,
+          "recall": 0.3695652173913043,
+          "f1-score": 0.4358974358974359,
           "support": 46.0
         },
         "Accusation": {
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1-score": 0.0,
+          "precision": 0.4090909090909091,
+          "recall": 0.42857142857142855,
+          "f1-score": 0.4186046511627907,
           "support": 21.0
         },
         "Blame": {
-          "precision": 0.3,
-          "recall": 0.225,
-          "f1-score": 0.2571428571428571,
+          "precision": 0.42857142857142855,
+          "recall": 0.45,
+          "f1-score": 0.43902439024390244,
           "support": 40.0
         },
-        "accuracy": 0.36231884057971014,
+        "accuracy": 0.463768115942029,
         "macro avg": {
-          "precision": 0.2943396226415094,
-          "recall": 0.2817058204768583,
-          "f1-score": 0.2110161768056505,
+          "precision": 0.4612757034632035,
+          "recall": 0.4733244840713284,
+          "f1-score": 0.46036792069589527,
           "support": 138.0
         },
         "weighted avg": {
-          "precision": 0.3250615258408532,
-          "recall": 0.36231884057971014,
-          "f1-score": 0.26358716290066403,
+          "precision": 0.47053022460631155,
+          "recall": 0.463768115942029,
+          "f1-score": 0.4593424398936215,
           "support": 138.0
         }
       }
-    }
-  },
-  "text_only": {
-    "aspect": {
-      "accuracy": 0.7536231884057971,
-      "precision_macro": 0.12560386473429952,
-      "recall_macro": 0.16666666666666666,
-      "macro_f1": 0.14325068870523416,
-      "weighted_f1": 0.6477422445801893
-    },
-    "severity": {
-      "accuracy": 0.3115942028985507,
-      "precision_macro": 0.40674603174603174,
-      "recall_macro": 0.27174789621318374,
-      "macro_f1": 0.17955802803048931,
-      "weighted_f1": 0.2037244808871689
     }
   }
 }

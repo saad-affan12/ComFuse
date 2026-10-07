@@ -1,12 +1,13 @@
 {
-  "model_name": "distilbert-base-uncased",
-  "image_model": "resnet18",
+  "model_type": "multimodal",
+  "text_encoder": "distilbert-base-uncased",
+  "image_encoder": "resnet18",
   "max_length": 128,
   "batch_size": 16,
   "learning_rate": 3e-05,
-  "epochs": 3,
-  "dropout": 0.2,
-  "device": "cpu",
+  "epochs": 10,
+  "best_epoch": 10,
+  "best_val_score": 0.5794613589048901,
   "aspect_classes": [
     "Software",
     "Hardware",

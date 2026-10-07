@@ -62,7 +62,9 @@ def train_epoch(model, dataloader, optimizer, criterion_aspect, criterion_severi
         
         loss_aspect = criterion_aspect(aspect_logits, aspect_targets)
         loss_severity = criterion_severity(severity_logits, severity_targets)
-        loss = loss_aspect + loss_severity
+        
+        # Dual-task loss weighting prioritizing severity accuracy
+        loss = loss_aspect + 1.35 * loss_severity
         
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
@@ -140,14 +142,24 @@ def evaluate_model(model, dataloader, criterion_aspect, criterion_severity, devi
         "severity_trues": all_severity_trues
     }
 
-def train_and_save_model(model_type="multimodal", epochs=config.NUM_EPOCHS, lr=config.LEARNING_RATE):
+def compute_balanced_class_weights(labels, num_classes, max_weight=5.0):
+    """Compute smoothed inverse class frequency weights to handle imbalance."""
+    counts = np.bincount(labels, minlength=num_classes)
+    total = len(labels)
+    weights = total / (num_classes * np.maximum(counts, 1).astype(float))
+    weights = weights / np.mean(weights)
+    weights = np.clip(weights, 0.3, max_weight)
+    return torch.tensor(weights, dtype=torch.float)
+
+def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_RATE):
     """
     Train either 'multimodal' or 'text_only' model with validation selection.
     """
     device = config.get_device()
-    print(f"\n{'=' * 60}")
-    print(f"TRAINING {model_type.upper()} MODEL ON DEVICE: {device}")
-    print(f"{'=' * 60}")
+    print(f"\n{'=' * 60}", flush=True)
+    print(f"TRAINING {model_type.upper()} MODEL ON DEVICE: {device}", flush=True)
+    print(f"TARGET: Maximize Severity & Aspect Performance with 12 Epochs + Fine-tuning", flush=True)
+    print(f"{'=' * 60}", flush=True)
     
     # Load dataset splits
     train_df = pd.read_csv(os.path.join(config.PROCESSED_DATA_DIR, "train.csv"))
@@ -169,13 +181,37 @@ def train_and_save_model(model_type="multimodal", epochs=config.NUM_EPOCHS, lr=c
         
     os.makedirs(save_dir, exist_ok=True)
     
-    # Class weights or standard CrossEntropy
-    criterion_aspect = nn.CrossEntropyLoss()
-    criterion_severity = nn.CrossEntropyLoss()
+    # Compute balanced class weights
+    aspect_weights = compute_balanced_class_weights(
+        train_df["aspect_id"].values, config.NUM_ASPECT_CLASSES
+    ).to(device)
+    severity_weights = compute_balanced_class_weights(
+        train_df["severity_id"].values, config.NUM_SEVERITY_CLASSES
+    ).to(device)
     
-    # Optimizer only on parameters requiring grad
-    trainable_params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = AdamW(trainable_params, lr=lr, weight_decay=config.WEIGHT_DECAY)
+    print(f"Aspect Class Weights: {np.round(aspect_weights.cpu().numpy(), 2)}", flush=True)
+    print(f"Severity Class Weights: {np.round(severity_weights.cpu().numpy(), 2)}", flush=True)
+    
+    criterion_aspect = nn.CrossEntropyLoss(weight=aspect_weights, label_smoothing=0.02)
+    criterion_severity = nn.CrossEntropyLoss(weight=severity_weights, label_smoothing=0.02)
+    
+    # Differential learning rates: transformer backbone vs top projection heads
+    backbone_params = []
+    head_params = []
+    for name, param in model.named_parameters():
+        if not param.requires_grad:
+            continue
+        if "distilbert" in name or "resnet" in name:
+            backbone_params.append(param)
+        else:
+            head_params.append(param)
+            
+    optimizer_groups = [
+        {"params": backbone_params, "lr": 2.5e-5, "weight_decay": config.WEIGHT_DECAY},
+        {"params": head_params, "lr": 1e-4, "weight_decay": config.WEIGHT_DECAY}
+    ]
+    optimizer = AdamW(optimizer_groups)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-6)
     
     best_val_score = -1.0
     best_epoch = -1
@@ -187,19 +223,20 @@ def train_and_save_model(model_type="multimodal", epochs=config.NUM_EPOCHS, lr=c
         train_res = train_epoch(
             model, train_loader, optimizer, criterion_aspect, criterion_severity, device, is_multimodal=is_multimodal
         )
+        scheduler.step()
         val_res = evaluate_model(
             model, val_loader, criterion_aspect, criterion_severity, device, is_multimodal=is_multimodal
         )
         
-        # Combined score for model selection: average macro F1 across Aspect & Severity
-        val_score = (val_res["aspect_metrics"]["macro_f1"] + val_res["severity_metrics"]["macro_f1"]) / 2.0
+        # Combined score for model selection: prioritizing severity accuracy + macro F1
+        val_score = (val_res["severity_metrics"]["accuracy"] * 2.0 + val_res["aspect_metrics"]["accuracy"] + val_res["severity_metrics"]["macro_f1"]) / 4.0
         epoch_duration = time.time() - epoch_start
         
-        print(f"Epoch {epoch:02d}/{epochs:02d} [{epoch_duration:.1f}s]:")
-        print(f"  Train Loss: {train_res['loss']:.4f} | Val Loss: {val_res['loss']:.4f}")
-        print(f"  Val Aspect   -> Acc: {val_res['aspect_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['aspect_metrics']['macro_f1']:.4f} | Weighted F1: {val_res['aspect_metrics']['weighted_f1']:.4f}")
-        print(f"  Val Severity -> Acc: {val_res['severity_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['severity_metrics']['macro_f1']:.4f} | Weighted F1: {val_res['severity_metrics']['weighted_f1']:.4f}")
-        print(f"  Combined Val F1: {val_score:.4f}")
+        print(f"Epoch {epoch:02d}/{epochs:02d} [{epoch_duration:.1f}s]:", flush=True)
+        print(f"  Train Loss: {train_res['loss']:.4f} | Val Loss: {val_res['loss']:.4f}", flush=True)
+        print(f"  Val Aspect   -> Acc: {val_res['aspect_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['aspect_metrics']['macro_f1']:.4f}", flush=True)
+        print(f"  Val Severity -> Acc: {val_res['severity_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['severity_metrics']['macro_f1']:.4f}", flush=True)
+        print(f"  Selection Score: {val_score:.4f}", flush=True)
         
         hist_entry = {
             "epoch": epoch,

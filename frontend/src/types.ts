@@ -49,7 +49,10 @@ export interface AnalysisRecord {
   id: string;
   timestamp: string;
   text: string;
+  complaintText?: string;
   imagePresent: boolean;
+  imageFileName?: string;
+  imagePreviewUrl?: string;
   mode: 'multimodal' | 'text-only';
   aspectLabel: string;
   aspectConfidence: number;
@@ -57,6 +60,7 @@ export interface AnalysisRecord {
   severityConfidence: number;
   aspectProbabilities: ProbabilityDistribution;
   severityProbabilities: ProbabilityDistribution;
+  rawResponse?: PredictionResponse;
 }
 
 export type HistoryItem = AnalysisRecord;

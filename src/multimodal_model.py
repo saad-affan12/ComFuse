@@ -20,7 +20,7 @@ class MultimodalComplaintClassifier(nn.Module):
         image_proj_dim: int = config.IMAGE_PROJ_DIM,
         fusion_dim: int = config.FUSION_HIDDEN_DIM,
         dropout_rate: float = config.DROPOUT_RATE,
-        freeze_distilbert_layers: int = 4
+        freeze_distilbert_layers: int = 1
     ):
         super(MultimodalComplaintClassifier, self).__init__()
         

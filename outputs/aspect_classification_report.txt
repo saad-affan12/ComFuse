@@ -1,6 +1,6 @@
               precision    recall  f1-score   support
 
-    Software       0.75      1.00      0.86       104
+    Software       0.76      0.99      0.86       104
     Hardware       0.00      0.00      0.00        14
      Quality       0.00      0.00      0.00         9
      Service       0.00      0.00      0.00         9
