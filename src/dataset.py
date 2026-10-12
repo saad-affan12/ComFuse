@@ -57,6 +57,7 @@ class ComplaintDataset(Dataset):
         self.max_length = max_length
         self.transform = get_image_transforms(is_train=is_train)
         self.base_dir = base_dir
+        self._image_cache = {}
 
     def __len__(self):
         return len(self.df)
@@ -76,23 +77,27 @@ class ComplaintDataset(Dataset):
         input_ids = encoded_text["input_ids"].squeeze(0)
         attention_mask = encoded_text["attention_mask"].squeeze(0)
         
-        # 2. Image Loading and Preprocessing
-        img_rel_path = row.get("image_path", None)
-        has_image = False
-        image_tensor = torch.zeros(3, 224, 224, dtype=torch.float32)
-        
-        if pd.notna(img_rel_path) and img_rel_path:
-            full_img_path = os.path.join(self.base_dir, str(img_rel_path))
-            if os.path.exists(full_img_path):
-                try:
-                    with Image.open(full_img_path) as pil_img:
-                        rgb_img = pil_img.convert("RGB")
-                        image_tensor = self.transform(rgb_img)
-                        has_image = True
-                except Exception:
-                    has_image = False
-                    image_tensor = torch.zeros(3, 224, 224, dtype=torch.float32)
-                    
+        # 2. Image Loading with RAM caching
+        if idx in self._image_cache:
+            image_tensor, has_image = self._image_cache[idx]
+        else:
+            img_rel_path = row.get("image_path", None)
+            has_image = False
+            image_tensor = torch.zeros(3, 224, 224, dtype=torch.float32)
+            
+            if pd.notna(img_rel_path) and img_rel_path:
+                full_img_path = os.path.join(self.base_dir, str(img_rel_path))
+                if os.path.exists(full_img_path):
+                    try:
+                        with Image.open(full_img_path) as pil_img:
+                            rgb_img = pil_img.convert("RGB")
+                            image_tensor = self.transform(rgb_img)
+                            has_image = True
+                    except Exception:
+                        has_image = False
+                        image_tensor = torch.zeros(3, 224, 224, dtype=torch.float32)
+            self._image_cache[idx] = (image_tensor, has_image)
+                        
         aspect_id = int(row.get("aspect_id", -1))
         severity_id = int(row.get("severity_id", -1))
         
@@ -112,14 +117,34 @@ def get_dataloaders(
     val_df: pd.DataFrame,
     test_df: pd.DataFrame,
     tokenizer: DistilBertTokenizer,
-    batch_size: int = config.BATCH_SIZE
+    batch_size: int = config.BATCH_SIZE,
+    use_balanced_sampler: bool = True
 ):
-    """Create train, validation, and test PyTorch DataLoaders."""
+    """Create train, validation, and test PyTorch DataLoaders with balanced sampling."""
     train_dataset = ComplaintDataset(train_df, tokenizer, is_train=True)
     val_dataset = ComplaintDataset(val_df, tokenizer, is_train=False)
     test_dataset = ComplaintDataset(test_df, tokenizer, is_train=False)
     
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=False)
+    if use_balanced_sampler:
+        sev_counts = train_df["severity_id"].value_counts().to_dict()
+        asp_counts = train_df["aspect_id"].value_counts().to_dict()
+        n_train = len(train_df)
+        
+        weights = []
+        for s_id, a_id in zip(train_df["severity_id"], train_df["aspect_id"]):
+            w_sev = n_train / (4.0 * max(sev_counts.get(s_id, 1), 1))
+            w_asp = (n_train / (6.0 * max(asp_counts.get(a_id, 1), 1))) ** 0.45
+            weights.append(w_sev * w_asp)
+            
+        sampler = torch.utils.data.WeightedRandomSampler(
+            weights=weights,
+            num_samples=len(weights),
+            replacement=True
+        )
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=sampler, drop_last=False)
+    else:
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=False)
+        
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     

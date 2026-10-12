@@ -35,12 +35,33 @@ def compute_metrics(y_true, y_pred):
         "recall_macro": recall_macro
     }
 
+class FocalLoss(nn.Module):
+    """Focal Loss with label smoothing to balance hard & minority samples."""
+    def __init__(self, weight=None, gamma=1.8, label_smoothing=0.01):
+        super(FocalLoss, self).__init__()
+        self.weight = weight
+        self.gamma = gamma
+        self.label_smoothing = label_smoothing
+
+    def forward(self, inputs, targets):
+        ce = nn.functional.cross_entropy(
+            inputs, targets, weight=self.weight, reduction="none", label_smoothing=self.label_smoothing
+        )
+        pt = torch.exp(-ce)
+        fl = ((1.0 - pt) ** self.gamma) * ce
+        return fl.mean()
+
 def train_epoch(model, dataloader, optimizer, criterion_aspect, criterion_severity, device, is_multimodal=True):
-    """Run one epoch of training."""
+    """Run one epoch of training and track training accuracy."""
     model.train()
     total_loss = 0.0
     total_aspect_loss = 0.0
     total_severity_loss = 0.0
+    
+    all_aspect_preds = []
+    all_aspect_trues = []
+    all_severity_preds = []
+    all_severity_trues = []
     
     for batch in dataloader:
         optimizer.zero_grad()
@@ -64,7 +85,7 @@ def train_epoch(model, dataloader, optimizer, criterion_aspect, criterion_severi
         loss_severity = criterion_severity(severity_logits, severity_targets)
         
         # Dual-task loss weighting prioritizing severity accuracy
-        loss = loss_aspect + 1.35 * loss_severity
+        loss = loss_aspect + 1.4 * loss_severity
         
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
@@ -74,11 +95,20 @@ def train_epoch(model, dataloader, optimizer, criterion_aspect, criterion_severi
         total_aspect_loss += loss_aspect.item()
         total_severity_loss += loss_severity.item()
         
+        all_aspect_preds.extend(torch.argmax(aspect_logits, dim=-1).detach().cpu().numpy())
+        all_aspect_trues.extend(aspect_targets.detach().cpu().numpy())
+        all_severity_preds.extend(torch.argmax(severity_logits, dim=-1).detach().cpu().numpy())
+        all_severity_trues.extend(severity_targets.detach().cpu().numpy())
+        
     num_batches = len(dataloader)
+    train_aspect_acc = accuracy_score(all_aspect_trues, all_aspect_preds)
+    train_severity_acc = accuracy_score(all_severity_trues, all_severity_preds)
     return {
         "loss": total_loss / num_batches,
         "aspect_loss": total_aspect_loss / num_batches,
-        "severity_loss": total_severity_loss / num_batches
+        "severity_loss": total_severity_loss / num_batches,
+        "train_aspect_acc": train_aspect_acc,
+        "train_severity_acc": train_severity_acc
     }
 
 def evaluate_model(model, dataloader, criterion_aspect, criterion_severity, device, is_multimodal=True):
@@ -148,17 +178,17 @@ def compute_balanced_class_weights(labels, num_classes, max_weight=5.0):
     total = len(labels)
     weights = total / (num_classes * np.maximum(counts, 1).astype(float))
     weights = weights / np.mean(weights)
-    weights = np.clip(weights, 0.3, max_weight)
+    weights = np.clip(weights, 0.35, max_weight)
     return torch.tensor(weights, dtype=torch.float)
 
-def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_RATE):
+def train_and_save_model(model_type="multimodal", epochs=config.NUM_EPOCHS, lr=config.LEARNING_RATE):
     """
-    Train either 'multimodal' or 'text_only' model with validation selection.
+    Train model with validation selection, balanced sampler, and Focal Loss.
     """
     device = config.get_device()
     print(f"\n{'=' * 60}", flush=True)
     print(f"TRAINING {model_type.upper()} MODEL ON DEVICE: {device}", flush=True)
-    print(f"TARGET: Maximize Severity & Aspect Performance with 12 Epochs + Fine-tuning", flush=True)
+    print(f"TARGET: 20 Epochs, Balanced Classes, Multimodal Dual-Head", flush=True)
     print(f"{'=' * 60}", flush=True)
     
     # Load dataset splits
@@ -168,12 +198,12 @@ def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_
     
     tokenizer = DistilBertTokenizer.from_pretrained(config.TEXT_MODEL_NAME)
     train_loader, val_loader, test_loader = get_dataloaders(
-        train_df, val_df, test_df, tokenizer, batch_size=config.BATCH_SIZE
+        train_df, val_df, test_df, tokenizer, batch_size=config.BATCH_SIZE, use_balanced_sampler=True
     )
     
     is_multimodal = (model_type == "multimodal")
     if is_multimodal:
-        model = MultimodalComplaintClassifier().to(device)
+        model = MultimodalComplaintClassifier(freeze_distilbert_layers=2).to(device)
         save_dir = config.MULTIMODAL_MODEL_DIR
     else:
         model = TextOnlyComplaintClassifier().to(device)
@@ -192,8 +222,8 @@ def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_
     print(f"Aspect Class Weights: {np.round(aspect_weights.cpu().numpy(), 2)}", flush=True)
     print(f"Severity Class Weights: {np.round(severity_weights.cpu().numpy(), 2)}", flush=True)
     
-    criterion_aspect = nn.CrossEntropyLoss(weight=aspect_weights, label_smoothing=0.02)
-    criterion_severity = nn.CrossEntropyLoss(weight=severity_weights, label_smoothing=0.02)
+    criterion_aspect = FocalLoss(weight=aspect_weights, gamma=1.5, label_smoothing=0.01)
+    criterion_severity = FocalLoss(weight=severity_weights, gamma=1.8, label_smoothing=0.01)
     
     # Differential learning rates: transformer backbone vs top projection heads
     backbone_params = []
@@ -207,8 +237,8 @@ def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_
             head_params.append(param)
             
     optimizer_groups = [
-        {"params": backbone_params, "lr": 2.5e-5, "weight_decay": config.WEIGHT_DECAY},
-        {"params": head_params, "lr": 1e-4, "weight_decay": config.WEIGHT_DECAY}
+        {"params": backbone_params, "lr": 2.2e-5, "weight_decay": config.WEIGHT_DECAY},
+        {"params": head_params, "lr": 9e-5, "weight_decay": config.WEIGHT_DECAY}
     ]
     optimizer = AdamW(optimizer_groups)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-6)
@@ -228,14 +258,14 @@ def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_
             model, val_loader, criterion_aspect, criterion_severity, device, is_multimodal=is_multimodal
         )
         
-        # Combined score for model selection: prioritizing severity accuracy + macro F1
         val_score = (val_res["severity_metrics"]["accuracy"] * 2.0 + val_res["aspect_metrics"]["accuracy"] + val_res["severity_metrics"]["macro_f1"]) / 4.0
         epoch_duration = time.time() - epoch_start
         
         print(f"Epoch {epoch:02d}/{epochs:02d} [{epoch_duration:.1f}s]:", flush=True)
         print(f"  Train Loss: {train_res['loss']:.4f} | Val Loss: {val_res['loss']:.4f}", flush=True)
-        print(f"  Val Aspect   -> Acc: {val_res['aspect_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['aspect_metrics']['macro_f1']:.4f}", flush=True)
-        print(f"  Val Severity -> Acc: {val_res['severity_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['severity_metrics']['macro_f1']:.4f}", flush=True)
+        print(f"  Train -> Sev Acc: {train_res['train_severity_acc']*100:.2f}% | Asp Acc: {train_res['train_aspect_acc']*100:.2f}%", flush=True)
+        print(f"  Val   -> Sev Acc: {val_res['severity_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['severity_metrics']['macro_f1']:.4f}", flush=True)
+        print(f"  Val   -> Asp Acc: {val_res['aspect_metrics']['accuracy']*100:.2f}% | Macro F1: {val_res['aspect_metrics']['macro_f1']:.4f}", flush=True)
         print(f"  Selection Score: {val_score:.4f}", flush=True)
         
         hist_entry = {
@@ -316,7 +346,13 @@ def train_and_save_model(model_type="multimodal", epochs=12, lr=config.LEARNING_
         }
         with open(os.path.join(config.MODELS_DIR, "label_mappings.json"), "w") as f:
             json.dump(label_map, f, indent=2)
-        
+    if is_multimodal:
+        print("\n" + "=" * 60, flush=True)
+        print("RUNNING FINAL TEST SET EVALUATION & GENERATING VISUALIZATIONS", flush=True)
+        print("=" * 60, flush=True)
+        from src.evaluate import run_evaluation
+        run_evaluation()
+
     return best_epoch, best_val_score
 
 if __name__ == "__main__":

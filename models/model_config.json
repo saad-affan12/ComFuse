@@ -5,9 +5,9 @@
   "max_length": 128,
   "batch_size": 16,
   "learning_rate": 3e-05,
-  "epochs": 10,
-  "best_epoch": 10,
-  "best_val_score": 0.5794613589048901,
+  "epochs": 20,
+  "best_epoch": 8,
+  "best_val_score": 0.5502660512164675,
   "aspect_classes": [
     "Software",
     "Hardware",

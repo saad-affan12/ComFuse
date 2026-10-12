@@ -40,4 +40,6 @@ outputs/*.log
 # If using Git LFS, stage with: git add -f models/best_multimodal_model.pt
 models/*.pt
 models/**/*.pt
+*.pt
 *.pth
+experiments/checkpoints/

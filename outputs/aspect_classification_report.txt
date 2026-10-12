@@ -5,8 +5,8 @@
      Quality       0.00      0.00      0.00         9
      Service       0.00      0.00      0.00         9
        Price       0.00      0.00      0.00         1
-   Packaging       0.00      0.00      0.00         1
+   Packaging       0.50      1.00      0.67         1
 
     accuracy                           0.75       138
-   macro avg       0.13      0.17      0.14       138
-weighted avg       0.57      0.75      0.65       138
+   macro avg       0.21      0.33      0.25       138
+weighted avg       0.58      0.75      0.65       138
