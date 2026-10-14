@@ -1,0 +1,7 @@
+example_id,title,image,gt_aspect,pred_aspect,aspect_conf,aspect_status,gt_severity,pred_severity,severity_conf,severity_status,mode
+sample_1,Software UI Glitch & Shuffle Bug,sample_0413_thread_414.jpg,Software,Software,47.14%,CORRECT,Blame,Disapproval,32.70%,INCORRECT,Multimodal
+sample_2,Product Quality & Physical Flaw,sample_0455_thread_456.jpg,Quality,Software,34.91%,INCORRECT,Disapproval,Blame,29.35%,INCORRECT,Multimodal
+sample_3,Customer Service & Billing Delay,sample_0267_thread_268.jpg,Service,Price,31.80%,INCORRECT,Accusation,Blame,36.86%,INCORRECT,Multimodal
+sample_4,Hardware Defect & Battery Malfunction,sample_0488_thread_489.jpg,Hardware,Software,32.75%,INCORRECT,Blame,Disapproval,30.72%,INCORRECT,Multimodal
+sample_5,Packaging / Transit Damage (Text-Only),None,Packaging,Packaging,26.33%,CORRECT,Blame,Accusation,40.03%,INCORRECT,Text-only
+thread_82,Unresponsive iPhone 6 Hanging,None,Quality,Software,34.03%,INCORRECT,Blame,Accusation,36.05%,INCORRECT,Text-only

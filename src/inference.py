@@ -24,7 +24,11 @@ class ComplaintPredictor:
         self.image_transform = get_image_transforms(is_train=False)
         
         if checkpoint_path is None:
-            checkpoint_path = os.path.join(config.MULTIMODAL_MODEL_DIR, "best_model.pt")
+            preferred = os.path.join(config.MODELS_DIR, "best_multimodal_model.pt")
+            if os.path.exists(preferred) and os.path.getsize(preferred) > 1000000:
+                checkpoint_path = preferred
+            else:
+                checkpoint_path = os.path.join(config.MULTIMODAL_MODEL_DIR, "best_model.pt")
             
         self.checkpoint_path = checkpoint_path
         self.model = MultimodalComplaintClassifier().to(self.device)

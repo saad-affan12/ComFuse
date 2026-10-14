@@ -1,0 +1,25 @@
+aspect,severity,total_count,total_pct,train_count,train_pct,val_count,test_count,unique_threads
+Software,No Explicit Reproach,155,16.94,101,15.78,29,25,155
+Software,Disapproval,206,22.51,146,22.81,23,37,206
+Software,Accusation,110,12.02,79,12.34,18,13,110
+Software,Blame,222,24.26,159,24.84,34,29,222
+Hardware,No Explicit Reproach,16,1.75,14,2.19,1,1,16
+Hardware,Disapproval,19,2.08,13,2.03,3,3,19
+Hardware,Accusation,31,3.39,21,3.28,5,5,31
+Hardware,Blame,24,2.62,15,2.34,4,5,24
+Quality,No Explicit Reproach,15,1.64,9,1.41,3,3,15
+Quality,Disapproval,25,2.73,18,2.81,4,3,25
+Quality,Accusation,2,0.22,1,0.16,0,1,2
+Quality,Blame,15,1.64,12,1.88,1,2,15
+Service,No Explicit Reproach,21,2.3,18,2.81,2,1,21
+Service,Disapproval,16,1.75,10,1.56,3,3,16
+Service,Accusation,10,1.09,7,1.09,1,2,10
+Service,Blame,9,0.98,4,0.62,2,3,9
+Price,No Explicit Reproach,3,0.33,2,0.31,1,0,3
+Price,Disapproval,1,0.11,1,0.16,0,0,1
+Price,Accusation,1,0.11,1,0.16,0,0,1
+Price,Blame,5,0.55,3,0.47,1,1,5
+Packaging,No Explicit Reproach,1,0.11,0,0.0,0,1,1
+Packaging,Disapproval,2,0.22,1,0.16,1,0,2
+Packaging,Accusation,2,0.22,2,0.31,0,0,2
+Packaging,Blame,4,0.44,3,0.47,1,0,4

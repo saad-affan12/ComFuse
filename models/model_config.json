@@ -1,13 +1,14 @@
 {
-  "model_type": "multimodal",
-  "text_encoder": "distilbert-base-uncased",
-  "image_encoder": "resnet18",
-  "max_length": 128,
-  "batch_size": 16,
-  "learning_rate": 3e-05,
-  "epochs": 20,
-  "best_epoch": 8,
-  "best_val_score": 0.5502660512164675,
+  "model_name": "distilbert-base-uncased",
+  "image_model": "resnet18",
+  "architecture": "DistilBert + ResNet18 Multimodal Classifier",
+  "best_experiment": "Exp5_BalancedDataset_SmoothedLoss",
+  "max_seq_length": 128,
+  "text_proj_dim": 256,
+  "image_proj_dim": 256,
+  "fusion_hidden_dim": 256,
+  "num_aspect_classes": 6,
+  "num_severity_classes": 4,
   "aspect_classes": [
     "Software",
     "Hardware",
@@ -21,5 +22,43 @@
     "Disapproval",
     "Accusation",
     "Blame"
-  ]
+  ],
+  "aspect2id": {
+    "Software": 0,
+    "Hardware": 1,
+    "Quality": 2,
+    "Service": 3,
+    "Price": 4,
+    "Packaging": 5
+  },
+  "id2aspect": {
+    "0": "Software",
+    "1": "Hardware",
+    "2": "Quality",
+    "3": "Service",
+    "4": "Price",
+    "5": "Packaging"
+  },
+  "severity2id": {
+    "No Explicit Reproach": 0,
+    "Disapproval": 1,
+    "Accusation": 2,
+    "Blame": 3
+  },
+  "id2severity": {
+    "0": "No Explicit Reproach",
+    "1": "Disapproval",
+    "2": "Accusation",
+    "3": "Blame"
+  },
+  "test_metrics": {
+    "severity_accuracy": 0.3115942028985507,
+    "severity_balanced_accuracy": 0.29699834702464434,
+    "severity_macro_f1": 0.26630975062144574,
+    "severity_weighted_f1": 0.2696899239934029,
+    "aspect_accuracy": 0.7463768115942029,
+    "aspect_balanced_accuracy": 0.38087606837606836,
+    "aspect_macro_f1": 0.36834733893557425,
+    "aspect_weighted_f1": 0.6762270125441481
+  }
 }

@@ -1,0 +1,12 @@
+Metric,Original Baseline (Exp 1),Best Rebalanced (Exp),Delta
+Severity Accuracy,28.99%,31.16%,+2.17%
+Severity Balanced Accuracy,26.20%,29.70%,+3.50%
+Severity Macro-F1,0.2309,0.2663,+0.0354
+Severity Weighted-F1,0.2435,0.2697,+0.0261
+Aspect Accuracy,75.36%,74.64%,-0.72%
+Aspect Balanced Accuracy,16.67%,38.09%,+21.42%
+Aspect Macro-F1,0.1433,0.3683,+0.2251
+Software Aspect Recall,100.00%,95.19%,-4.81%
+Hardware Aspect Recall,0.00%,0.00%,+0.00%
+Quality Aspect Recall,0.00%,0.00%,+0.00%
+Service Aspect Recall,0.00%,33.33%,+33.33%

@@ -1,0 +1,11 @@
+target_type,class_name,class_id,sample_count,percentage,train_count,val_count,test_count,missing_or_invalid_samples,unique_thread_ids,available_images_on_disk
+Aspect,Software,0,693,75.74,485,104,104,0,693,0
+Aspect,Hardware,1,90,9.84,63,13,14,0,90,0
+Aspect,Quality,2,57,6.23,40,8,9,0,57,0
+Aspect,Service,3,56,6.12,39,8,9,0,56,0
+Aspect,Price,4,10,1.09,7,2,1,0,10,0
+Aspect,Packaging,5,9,0.98,6,2,1,0,9,0
+Severity,No Explicit Reproach,0,211,23.06,144,36,31,0,211,0
+Severity,Disapproval,1,269,29.4,189,34,46,0,269,0
+Severity,Accusation,2,156,17.05,111,24,21,0,156,0
+Severity,Blame,3,279,30.49,196,43,40,0,279,0

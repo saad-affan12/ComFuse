@@ -1,0 +1,526 @@
+balanced_index,original_sample_id,thread_id,aspect,aspect_id,severity,severity_id,is_duplicate,image_available
+0,425,426,Hardware,1,No Explicit Reproach,0,False,False
+1,442,443,Quality,2,Blame,3,False,False
+2,470,471,Software,0,Accusation,2,False,False
+3,329,330,Software,0,No Explicit Reproach,0,False,False
+4,654,655,Software,0,Blame,3,False,False
+5,525,526,Service,3,No Explicit Reproach,0,False,False
+6,529,530,Packaging,5,Blame,3,False,False
+7,878,879,Price,4,No Explicit Reproach,0,False,False
+8,102,103,Software,0,Disapproval,1,False,False
+9,795,796,Software,0,Disapproval,1,False,False
+10,377,378,Software,0,Accusation,2,False,False
+11,293,294,Packaging,5,Disapproval,1,False,False
+12,718,719,Software,0,Blame,3,False,False
+13,278,279,Service,3,No Explicit Reproach,0,False,False
+14,457,458,Price,4,Blame,3,False,False
+15,407,408,Software,0,Disapproval,1,False,False
+16,644,645,Software,0,Accusation,2,False,False
+17,371,372,Software,0,Disapproval,1,False,False
+18,599,600,Quality,2,Blame,3,False,False
+19,436,437,Software,0,Disapproval,1,False,False
+20,529,530,Packaging,5,Blame,3,True,False
+21,582,583,Hardware,1,Blame,3,False,False
+22,47,48,Hardware,1,Disapproval,1,False,False
+23,748,749,Hardware,1,Accusation,2,False,False
+24,100,101,Quality,2,Disapproval,1,False,False
+25,852,853,Hardware,1,Accusation,2,False,False
+26,46,47,Hardware,1,No Explicit Reproach,0,False,False
+27,525,526,Service,3,No Explicit Reproach,0,True,False
+28,731,732,Service,3,Disapproval,1,False,False
+29,569,570,Packaging,5,Blame,3,False,False
+30,293,294,Packaging,5,Disapproval,1,True,False
+31,346,347,Software,0,Blame,3,False,False
+32,419,420,Quality,2,No Explicit Reproach,0,False,False
+33,82,83,Quality,2,Disapproval,1,False,False
+34,554,555,Software,0,Accusation,2,False,False
+35,581,582,Software,0,Blame,3,False,False
+36,586,587,Quality,2,Blame,3,False,False
+37,720,721,Software,0,Blame,3,False,False
+38,738,739,Software,0,Accusation,2,False,False
+39,515,516,Software,0,Blame,3,False,False
+40,638,639,Software,0,Blame,3,False,False
+41,589,590,Software,0,Blame,3,False,False
+42,411,412,Hardware,1,No Explicit Reproach,0,False,False
+43,25,26,Software,0,Disapproval,1,False,False
+44,686,687,Service,3,Accusation,2,False,False
+45,586,587,Quality,2,Blame,3,True,False
+46,664,665,Software,0,Blame,3,False,False
+47,748,749,Hardware,1,Accusation,2,True,False
+48,115,116,Quality,2,No Explicit Reproach,0,False,False
+49,466,467,Software,0,Blame,3,False,False
+50,817,818,Packaging,5,Accusation,2,False,False
+51,526,527,Software,0,Blame,3,False,False
+52,774,775,Service,3,Accusation,2,False,False
+53,487,488,Packaging,5,Blame,3,False,False
+54,218,219,Software,0,No Explicit Reproach,0,False,False
+55,796,797,Software,0,No Explicit Reproach,0,False,False
+56,228,229,Software,0,Disapproval,1,False,False
+57,307,308,Software,0,No Explicit Reproach,0,False,False
+58,583,584,Service,3,Blame,3,False,False
+59,155,156,Quality,2,Disapproval,1,False,False
+60,244,245,Quality,2,Blame,3,False,False
+61,41,42,Hardware,1,Disapproval,1,False,False
+62,134,135,Quality,2,Disapproval,1,False,False
+63,134,135,Quality,2,Disapproval,1,True,False
+64,467,468,Software,0,Blame,3,False,False
+65,579,580,Service,3,Disapproval,1,False,False
+66,464,465,Software,0,Disapproval,1,False,False
+67,717,718,Software,0,Blame,3,False,False
+68,647,648,Software,0,Blame,3,False,False
+69,134,135,Quality,2,Disapproval,1,True,False
+70,505,506,Software,0,Blame,3,False,False
+71,58,59,Hardware,1,Disapproval,1,False,False
+72,861,862,Software,0,No Explicit Reproach,0,False,False
+73,359,360,Software,0,Accusation,2,False,False
+74,544,545,Software,0,Blame,3,False,False
+75,665,666,Software,0,Blame,3,False,False
+76,828,829,Software,0,Accusation,2,False,False
+77,376,377,Software,0,Accusation,2,False,False
+78,56,57,Hardware,1,Disapproval,1,False,False
+79,914,915,Software,0,Accusation,2,False,False
+80,684,685,Hardware,1,Accusation,2,False,False
+81,278,279,Service,3,No Explicit Reproach,0,True,False
+82,484,485,Hardware,1,No Explicit Reproach,0,False,False
+83,487,488,Packaging,5,Blame,3,True,False
+84,345,346,Software,0,Disapproval,1,False,False
+85,827,828,Service,3,No Explicit Reproach,0,False,False
+86,683,684,Software,0,Accusation,2,False,False
+87,360,361,Software,0,No Explicit Reproach,0,False,False
+88,115,116,Quality,2,No Explicit Reproach,0,True,False
+89,351,352,Software,0,Accusation,2,False,False
+90,113,114,Quality,2,Disapproval,1,False,False
+91,614,615,Software,0,Blame,3,False,False
+92,439,440,Price,4,Blame,3,False,False
+93,689,690,Software,0,Blame,3,False,False
+94,740,741,Software,0,Blame,3,False,False
+95,363,364,Software,0,Disapproval,1,False,False
+96,180,181,Software,0,No Explicit Reproach,0,False,False
+97,310,311,Quality,2,Disapproval,1,False,False
+98,432,433,Quality,2,Disapproval,1,False,False
+99,582,583,Hardware,1,Blame,3,True,False
+100,72,73,Service,3,No Explicit Reproach,0,False,False
+101,492,493,Service,3,Disapproval,1,False,False
+102,409,410,Hardware,1,No Explicit Reproach,0,False,False
+103,611,612,Service,3,Disapproval,1,False,False
+104,27,28,Software,0,Disapproval,1,False,False
+105,748,749,Hardware,1,Accusation,2,True,False
+106,547,548,Software,0,Blame,3,False,False
+107,243,244,Quality,2,Disapproval,1,False,False
+108,855,856,Price,4,Disapproval,1,False,False
+109,624,625,Software,0,Disapproval,1,False,False
+110,310,311,Quality,2,Disapproval,1,True,False
+111,678,679,Hardware,1,Accusation,2,False,False
+112,76,77,Software,0,No Explicit Reproach,0,False,False
+113,18,19,Software,0,No Explicit Reproach,0,False,False
+114,731,732,Service,3,Disapproval,1,True,False
+115,767,768,Quality,2,Blame,3,False,False
+116,431,432,Hardware,1,Disapproval,1,False,False
+117,873,874,Software,0,Disapproval,1,False,False
+118,583,584,Service,3,Blame,3,True,False
+119,629,630,Software,0,No Explicit Reproach,0,False,False
+120,303,304,Quality,2,Blame,3,False,False
+121,590,591,Service,3,No Explicit Reproach,0,False,False
+122,45,46,Software,0,No Explicit Reproach,0,False,False
+123,225,226,Quality,2,Blame,3,False,False
+124,539,540,Hardware,1,Disapproval,1,False,False
+125,593,594,Service,3,Blame,3,False,False
+126,63,64,Quality,2,Disapproval,1,False,False
+127,453,454,Software,0,Blame,3,False,False
+128,487,488,Packaging,5,Blame,3,True,False
+129,30,31,Software,0,No Explicit Reproach,0,False,False
+130,91,92,Service,3,No Explicit Reproach,0,False,False
+131,849,850,Software,0,Accusation,2,False,False
+132,244,245,Quality,2,Blame,3,True,False
+133,657,658,Software,0,Blame,3,False,False
+134,442,443,Quality,2,Blame,3,True,False
+135,303,304,Quality,2,Blame,3,True,False
+136,457,458,Price,4,Blame,3,True,False
+137,71,72,Hardware,1,No Explicit Reproach,0,False,False
+138,843,844,Software,0,Accusation,2,False,False
+139,848,849,Service,3,Accusation,2,False,False
+140,829,830,Software,0,Blame,3,False,False
+141,855,856,Price,4,Disapproval,1,True,False
+142,763,764,Hardware,1,Accusation,2,False,False
+143,352,353,Software,0,Disapproval,1,False,False
+144,92,93,Hardware,1,No Explicit Reproach,0,False,False
+145,747,748,Software,0,Disapproval,1,False,False
+146,607,608,Quality,2,No Explicit Reproach,0,False,False
+147,839,840,Software,0,Accusation,2,False,False
+148,343,344,Software,0,Disapproval,1,False,False
+149,651,652,Hardware,1,Blame,3,False,False
+150,543,544,Hardware,1,Blame,3,False,False
+151,710,711,Service,3,Accusation,2,False,False
+152,719,720,Software,0,Blame,3,False,False
+153,432,433,Quality,2,Disapproval,1,True,False
+154,254,255,Software,0,Accusation,2,False,False
+155,889,890,Software,0,Accusation,2,False,False
+156,669,670,Hardware,1,Accusation,2,False,False
+157,273,274,Software,0,Blame,3,False,False
+158,722,723,Hardware,1,Accusation,2,False,False
+159,240,241,Service,3,No Explicit Reproach,0,False,False
+160,779,780,Software,0,Blame,3,False,False
+161,822,823,Service,3,No Explicit Reproach,0,False,False
+162,432,433,Quality,2,Disapproval,1,True,False
+163,805,806,Software,0,Accusation,2,False,False
+164,543,544,Hardware,1,Blame,3,True,False
+165,364,365,Hardware,1,No Explicit Reproach,0,False,False
+166,293,294,Packaging,5,Disapproval,1,True,False
+167,842,843,Software,0,Accusation,2,False,False
+168,67,68,Software,0,Disapproval,1,False,False
+169,603,604,Software,0,Blame,3,False,False
+170,878,879,Price,4,No Explicit Reproach,0,True,False
+171,303,304,Quality,2,Blame,3,True,False
+172,702,703,Software,0,Accusation,2,False,False
+173,834,835,Price,4,Accusation,2,False,False
+174,176,177,Quality,2,No Explicit Reproach,0,False,False
+175,770,771,Software,0,Accusation,2,False,False
+176,439,440,Price,4,Blame,3,True,False
+177,611,612,Service,3,Disapproval,1,True,False
+178,517,518,Software,0,Blame,3,False,False
+179,101,102,Software,0,Disapproval,1,False,False
+180,692,693,Quality,2,Blame,3,False,False
+181,726,727,Hardware,1,Accusation,2,False,False
+182,885,886,Software,0,Accusation,2,False,False
+183,599,600,Quality,2,Blame,3,True,False
+184,114,115,Software,0,No Explicit Reproach,0,False,False
+185,815,816,Software,0,Accusation,2,False,False
+186,701,702,Software,0,Accusation,2,False,False
+187,111,112,Software,0,No Explicit Reproach,0,False,False
+188,439,440,Price,4,Blame,3,True,False
+189,503,504,Software,0,Disapproval,1,False,False
+190,490,491,Software,0,Blame,3,False,False
+191,99,100,Software,0,Disapproval,1,False,False
+192,834,835,Price,4,Accusation,2,True,False
+193,268,269,Software,0,Disapproval,1,False,False
+194,107,108,Software,0,Disapproval,1,False,False
+195,281,282,Hardware,1,No Explicit Reproach,0,False,False
+196,279,280,Software,0,No Explicit Reproach,0,False,False
+197,292,293,Software,0,No Explicit Reproach,0,False,False
+198,5,6,Software,0,No Explicit Reproach,0,False,False
+199,385,386,Software,0,Disapproval,1,False,False
+200,284,285,Software,0,No Explicit Reproach,0,False,False
+201,341,342,Quality,2,Disapproval,1,False,False
+202,710,711,Service,3,Accusation,2,True,False
+203,72,73,Service,3,No Explicit Reproach,0,True,False
+204,457,458,Price,4,Blame,3,True,False
+205,799,800,Service,3,No Explicit Reproach,0,False,False
+206,252,253,Service,3,Accusation,2,False,False
+207,427,428,Software,0,Disapproval,1,False,False
+208,244,245,Quality,2,Blame,3,True,False
+209,656,657,Software,0,Blame,3,False,False
+210,569,570,Packaging,5,Blame,3,True,False
+211,208,209,Software,0,Disapproval,1,False,False
+212,276,277,Software,0,No Explicit Reproach,0,False,False
+213,590,591,Service,3,No Explicit Reproach,0,True,False
+214,710,711,Service,3,Accusation,2,True,False
+215,437,438,Hardware,1,Disapproval,1,False,False
+216,55,56,Software,0,No Explicit Reproach,0,False,False
+217,681,682,Software,0,Blame,3,False,False
+218,560,561,Software,0,Disapproval,1,False,False
+219,799,800,Service,3,No Explicit Reproach,0,True,False
+220,150,151,Software,0,Disapproval,1,False,False
+221,610,611,Software,0,Blame,3,False,False
+222,321,322,Software,0,Disapproval,1,False,False
+223,281,282,Hardware,1,No Explicit Reproach,0,True,False
+224,731,732,Service,3,Disapproval,1,True,False
+225,817,818,Packaging,5,Accusation,2,True,False
+226,754,755,Software,0,Blame,3,False,False
+227,559,560,Software,0,Blame,3,False,False
+228,16,17,Software,0,Disapproval,1,False,False
+229,138,139,Software,0,Disapproval,1,False,False
+230,69,70,Software,0,No Explicit Reproach,0,False,False
+231,281,282,Hardware,1,No Explicit Reproach,0,True,False
+232,491,492,Software,0,Blame,3,False,False
+233,767,768,Quality,2,Blame,3,True,False
+234,41,42,Hardware,1,Disapproval,1,True,False
+235,878,879,Price,4,No Explicit Reproach,0,True,False
+236,350,351,Software,0,Disapproval,1,False,False
+237,31,32,Hardware,1,No Explicit Reproach,0,False,False
+238,819,820,Hardware,1,Blame,3,False,False
+239,425,426,Hardware,1,No Explicit Reproach,0,True,False
+240,569,570,Packaging,5,Blame,3,True,False
+241,686,687,Service,3,Accusation,2,True,False
+242,878,879,Price,4,No Explicit Reproach,0,True,False
+243,170,171,Hardware,1,No Explicit Reproach,0,False,False
+244,454,455,Quality,2,Disapproval,1,False,False
+245,231,232,Service,3,No Explicit Reproach,0,False,False
+246,205,206,Service,3,Blame,3,False,False
+247,824,825,Hardware,1,Accusation,2,False,False
+248,806,807,Hardware,1,Disapproval,1,False,False
+249,860,861,Software,0,Blame,3,False,False
+250,15,16,Software,0,No Explicit Reproach,0,False,False
+251,36,37,Software,0,Disapproval,1,False,False
+252,81,82,Quality,2,Blame,3,False,False
+253,626,627,Hardware,1,Blame,3,False,False
+254,539,540,Hardware,1,Disapproval,1,True,False
+255,281,282,Hardware,1,No Explicit Reproach,0,True,False
+256,249,250,Software,0,Blame,3,False,False
+257,191,192,Software,0,Disapproval,1,False,False
+258,784,785,Hardware,1,Accusation,2,False,False
+259,551,552,Hardware,1,Blame,3,False,False
+260,525,526,Service,3,No Explicit Reproach,0,True,False
+261,313,314,Software,0,Disapproval,1,False,False
+262,293,294,Packaging,5,Disapproval,1,True,False
+263,234,235,Software,0,Blame,3,False,False
+264,215,216,Quality,2,Blame,3,False,False
+265,328,329,Software,0,No Explicit Reproach,0,False,False
+266,853,854,Service,3,Accusation,2,False,False
+267,562,563,Software,0,Disapproval,1,False,False
+268,817,818,Packaging,5,Accusation,2,True,False
+269,380,381,Software,0,Disapproval,1,False,False
+270,37,38,Quality,2,No Explicit Reproach,0,False,False
+271,775,776,Hardware,1,Accusation,2,False,False
+272,79,80,Software,0,Disapproval,1,False,False
+273,86,87,Service,3,No Explicit Reproach,0,False,False
+274,500,501,Software,0,Blame,3,False,False
+275,344,345,Software,0,Disapproval,1,False,False
+276,784,785,Hardware,1,Accusation,2,True,False
+277,115,116,Quality,2,No Explicit Reproach,0,True,False
+278,535,536,Software,0,Blame,3,False,False
+279,850,851,Service,3,Accusation,2,False,False
+280,115,116,Quality,2,No Explicit Reproach,0,True,False
+281,646,647,Software,0,Disapproval,1,False,False
+282,2,3,Software,0,No Explicit Reproach,0,False,False
+283,112,113,Software,0,No Explicit Reproach,0,False,False
+284,746,747,Hardware,1,Disapproval,1,False,False
+285,193,194,Quality,2,No Explicit Reproach,0,False,False
+286,753,754,Hardware,1,Accusation,2,False,False
+287,212,213,Quality,2,Disapproval,1,False,False
+288,834,835,Price,4,Accusation,2,True,False
+289,110,111,Service,3,No Explicit Reproach,0,False,False
+290,71,72,Hardware,1,No Explicit Reproach,0,True,False
+291,757,758,Software,0,Disapproval,1,False,False
+292,442,443,Quality,2,Blame,3,True,False
+293,669,670,Hardware,1,Accusation,2,True,False
+294,579,580,Service,3,Disapproval,1,True,False
+295,75,76,Software,0,No Explicit Reproach,0,False,False
+296,245,246,Software,0,Disapproval,1,False,False
+297,593,594,Service,3,Blame,3,True,False
+298,551,552,Hardware,1,Blame,3,True,False
+299,525,526,Service,3,No Explicit Reproach,0,True,False
+300,72,73,Service,3,No Explicit Reproach,0,True,False
+301,331,332,Service,3,No Explicit Reproach,0,False,False
+302,341,342,Quality,2,Disapproval,1,True,False
+303,437,438,Hardware,1,Disapproval,1,True,False
+304,626,627,Hardware,1,Blame,3,True,False
+305,72,73,Service,3,No Explicit Reproach,0,True,False
+306,341,342,Quality,2,Disapproval,1,True,False
+307,128,129,Software,0,Disapproval,1,False,False
+308,148,149,Software,0,No Explicit Reproach,0,False,False
+309,32,33,Quality,2,Disapproval,1,False,False
+310,155,156,Quality,2,Disapproval,1,True,False
+311,703,704,Quality,2,Blame,3,False,False
+312,569,570,Packaging,5,Blame,3,True,False
+313,225,226,Quality,2,Blame,3,True,False
+314,871,872,Hardware,1,Accusation,2,False,False
+315,278,279,Service,3,No Explicit Reproach,0,True,False
+316,855,856,Price,4,Disapproval,1,True,False
+317,378,379,Software,0,Disapproval,1,False,False
+318,214,215,Quality,2,No Explicit Reproach,0,False,False
+319,147,148,Software,0,Disapproval,1,False,False
+320,420,421,Software,0,No Explicit Reproach,0,False,False
+321,751,752,Hardware,1,Blame,3,False,False
+322,871,872,Hardware,1,Accusation,2,True,False
+323,48,49,Software,0,Disapproval,1,False,False
+324,386,387,Software,0,Disapproval,1,False,False
+325,207,208,Service,3,No Explicit Reproach,0,False,False
+326,232,233,Hardware,1,No Explicit Reproach,0,False,False
+327,421,422,Service,3,Blame,3,False,False
+328,225,226,Quality,2,Blame,3,True,False
+329,531,532,Software,0,Disapproval,1,False,False
+330,529,530,Packaging,5,Blame,3,True,False
+331,71,72,Hardware,1,No Explicit Reproach,0,True,False
+332,593,594,Service,3,Blame,3,True,False
+333,706,707,Software,0,Blame,3,False,False
+334,830,831,Service,3,Disapproval,1,False,False
+335,438,439,Quality,2,Disapproval,1,False,False
+336,881,882,Software,0,Disapproval,1,False,False
+337,32,33,Quality,2,Disapproval,1,True,False
+338,693,694,Software,0,Blame,3,False,False
+339,457,458,Price,4,Blame,3,True,False
+340,909,910,Software,0,Blame,3,False,False
+341,722,723,Hardware,1,Accusation,2,True,False
+342,794,795,Software,0,Blame,3,False,False
+343,56,57,Hardware,1,Disapproval,1,True,False
+344,397,398,Software,0,No Explicit Reproach,0,False,False
+345,205,206,Service,3,Blame,3,True,False
+346,185,186,Software,0,Disapproval,1,False,False
+347,896,897,Software,0,Accusation,2,False,False
+348,682,683,Software,0,Accusation,2,False,False
+349,478,479,Software,0,Accusation,2,False,False
+350,462,463,Software,0,Disapproval,1,False,False
+351,814,815,Software,0,Disapproval,1,False,False
+352,537,538,Service,3,Disapproval,1,False,False
+353,310,311,Quality,2,Disapproval,1,True,False
+354,73,74,Hardware,1,Disapproval,1,False,False
+355,700,701,Software,0,Blame,3,False,False
+356,392,393,Software,0,Blame,3,False,False
+357,684,685,Hardware,1,Accusation,2,True,False
+358,240,241,Service,3,No Explicit Reproach,0,True,False
+359,113,114,Quality,2,Disapproval,1,True,False
+360,590,591,Service,3,No Explicit Reproach,0,True,False
+361,204,205,Software,0,No Explicit Reproach,0,False,False
+362,400,401,Software,0,Blame,3,False,False
+363,687,688,Price,4,Blame,3,False,False
+364,421,422,Service,3,Blame,3,True,False
+365,555,556,Software,0,No Explicit Reproach,0,False,False
+366,737,738,Hardware,1,Accusation,2,False,False
+367,339,340,Quality,2,Accusation,2,False,False
+368,775,776,Hardware,1,Accusation,2,True,False
+369,331,332,Service,3,No Explicit Reproach,0,True,False
+370,382,383,Software,0,Accusation,2,False,False
+371,824,825,Hardware,1,Accusation,2,True,False
+372,331,332,Service,3,No Explicit Reproach,0,True,False
+373,530,531,Software,0,Blame,3,False,False
+374,775,776,Hardware,1,Accusation,2,True,False
+375,240,241,Service,3,No Explicit Reproach,0,True,False
+376,428,429,Software,0,No Explicit Reproach,0,False,False
+377,91,92,Service,3,No Explicit Reproach,0,True,False
+378,357,358,Software,0,Disapproval,1,False,False
+379,235,236,Software,0,Blame,3,False,False
+380,56,57,Hardware,1,Disapproval,1,True,False
+381,157,158,Software,0,No Explicit Reproach,0,False,False
+382,477,478,Software,0,Blame,3,False,False
+383,758,759,Software,0,Blame,3,False,False
+384,902,903,Software,0,Accusation,2,False,False
+385,425,426,Hardware,1,No Explicit Reproach,0,True,False
+386,81,82,Quality,2,Blame,3,True,False
+387,391,392,Software,0,No Explicit Reproach,0,False,False
+388,774,775,Service,3,Accusation,2,True,False
+389,473,474,Software,0,Accusation,2,False,False
+390,731,732,Service,3,Disapproval,1,True,False
+391,907,908,Hardware,1,Blame,3,False,False
+392,821,822,Hardware,1,Blame,3,False,False
+393,264,265,Quality,2,Disapproval,1,False,False
+394,651,652,Hardware,1,Blame,3,True,False
+395,151,152,Software,0,Disapproval,1,False,False
+396,214,215,Quality,2,No Explicit Reproach,0,True,False
+397,98,99,Service,3,No Explicit Reproach,0,False,False
+398,354,355,Software,0,Disapproval,1,False,False
+399,886,887,Software,0,Blame,3,False,False
+400,239,240,Software,0,Disapproval,1,False,False
+401,374,375,Software,0,Disapproval,1,False,False
+402,817,818,Packaging,5,Accusation,2,True,False
+403,675,676,Software,0,Accusation,2,False,False
+404,599,600,Quality,2,Blame,3,True,False
+405,457,458,Price,4,Blame,3,True,False
+406,677,678,Software,0,Blame,3,False,False
+407,484,485,Hardware,1,No Explicit Reproach,0,True,False
+408,874,875,Software,0,Accusation,2,False,False
+409,8,9,Software,0,Disapproval,1,False,False
+410,549,550,Software,0,Blame,3,False,False
+411,214,215,Quality,2,No Explicit Reproach,0,True,False
+412,439,440,Price,4,Blame,3,True,False
+413,141,142,Service,3,Disapproval,1,False,False
+414,388,389,Software,0,No Explicit Reproach,0,False,False
+415,207,208,Service,3,No Explicit Reproach,0,True,False
+416,543,544,Hardware,1,Blame,3,True,False
+417,817,818,Packaging,5,Accusation,2,True,False
+418,91,92,Service,3,No Explicit Reproach,0,True,False
+419,514,515,Quality,2,Blame,3,False,False
+420,170,171,Hardware,1,No Explicit Reproach,0,True,False
+421,305,306,Software,0,No Explicit Reproach,0,False,False
+422,226,227,Software,0,No Explicit Reproach,0,False,False
+423,551,552,Hardware,1,Blame,3,True,False
+424,687,688,Price,4,Blame,3,True,False
+425,21,22,Hardware,1,Disapproval,1,False,False
+426,293,294,Packaging,5,Disapproval,1,True,False
+427,439,440,Price,4,Blame,3,True,False
+428,806,807,Hardware,1,Disapproval,1,True,False
+429,193,194,Quality,2,No Explicit Reproach,0,True,False
+430,425,426,Hardware,1,No Explicit Reproach,0,True,False
+431,316,317,Software,0,No Explicit Reproach,0,False,False
+432,497,498,Software,0,Disapproval,1,False,False
+433,851,852,Software,0,Blame,3,False,False
+434,186,187,Software,0,No Explicit Reproach,0,False,False
+435,790,791,Service,3,Disapproval,1,False,False
+436,0,1,Software,0,No Explicit Reproach,0,False,False
+437,56,57,Hardware,1,Disapproval,1,True,False
+438,617,618,Hardware,1,Accusation,2,False,False
+439,619,620,Software,0,Blame,3,False,False
+440,667,668,Software,0,Blame,3,False,False
+441,225,226,Quality,2,Blame,3,True,False
+442,836,837,Software,0,Accusation,2,False,False
+443,848,849,Service,3,Accusation,2,True,False
+444,817,818,Packaging,5,Accusation,2,True,False
+445,506,507,Software,0,Blame,3,False,False
+446,774,775,Service,3,Accusation,2,True,False
+447,787,788,Software,0,Blame,3,False,False
+448,895,896,Software,0,No Explicit Reproach,0,False,False
+449,481,482,Software,0,Accusation,2,False,False
+450,853,854,Service,3,Accusation,2,True,False
+451,71,72,Hardware,1,No Explicit Reproach,0,True,False
+452,590,591,Service,3,No Explicit Reproach,0,True,False
+453,863,864,Price,4,No Explicit Reproach,0,False,False
+454,81,82,Quality,2,Blame,3,True,False
+455,545,546,Software,0,Blame,3,False,False
+456,236,237,Quality,2,Disapproval,1,False,False
+457,687,688,Price,4,Blame,3,True,False
+458,650,651,Software,0,Blame,3,False,False
+459,215,216,Quality,2,Blame,3,True,False
+460,721,722,Hardware,1,No Explicit Reproach,0,False,False
+461,47,48,Hardware,1,Disapproval,1,True,False
+462,847,848,Software,0,Accusation,2,False,False
+463,193,194,Quality,2,No Explicit Reproach,0,True,False
+464,704,705,Software,0,Blame,3,False,False
+465,586,587,Quality,2,Blame,3,True,False
+466,73,74,Hardware,1,Disapproval,1,True,False
+467,449,450,Software,0,Disapproval,1,False,False
+468,586,587,Quality,2,Blame,3,True,False
+469,529,530,Packaging,5,Blame,3,True,False
+470,109,110,Software,0,Disapproval,1,False,False
+471,852,853,Hardware,1,Accusation,2,True,False
+472,569,570,Packaging,5,Blame,3,True,False
+473,244,245,Quality,2,Blame,3,True,False
+474,41,42,Hardware,1,Disapproval,1,True,False
+475,568,569,Software,0,Blame,3,False,False
+476,432,433,Quality,2,Disapproval,1,True,False
+477,671,672,Software,0,Blame,3,False,False
+478,855,856,Price,4,Disapproval,1,True,False
+479,38,39,Software,0,No Explicit Reproach,0,False,False
+480,611,612,Service,3,Disapproval,1,True,False
+481,104,105,Software,0,No Explicit Reproach,0,False,False
+482,518,519,Packaging,5,Accusation,2,False,False
+483,853,854,Service,3,Accusation,2,True,False
+484,336,337,Software,0,No Explicit Reproach,0,False,False
+485,457,458,Price,4,Blame,3,True,False
+486,752,753,Software,0,Disapproval,1,False,False
+487,578,579,Software,0,Blame,3,False,False
+488,878,879,Price,4,No Explicit Reproach,0,True,False
+489,558,559,Software,0,Blame,3,False,False
+490,214,215,Quality,2,No Explicit Reproach,0,True,False
+491,47,48,Hardware,1,Disapproval,1,True,False
+492,651,652,Hardware,1,Blame,3,True,False
+493,480,481,Software,0,Accusation,2,False,False
+494,763,764,Hardware,1,Accusation,2,True,False
+495,593,594,Service,3,Blame,3,True,False
+496,12,13,Software,0,Disapproval,1,False,False
+497,592,593,Hardware,1,Blame,3,False,False
+498,408,409,Service,3,Disapproval,1,False,False
+499,300,301,Software,0,No Explicit Reproach,0,False,False
+500,181,182,Quality,2,No Explicit Reproach,0,False,False
+501,415,416,Hardware,1,No Explicit Reproach,0,False,False
+502,229,230,Service,3,Disapproval,1,False,False
+503,687,688,Price,4,Blame,3,True,False
+504,181,182,Quality,2,No Explicit Reproach,0,True,False
+505,54,55,Hardware,1,Disapproval,1,False,False
+506,722,723,Hardware,1,Accusation,2,True,False
+507,445,446,Software,0,Disapproval,1,False,False
+508,60,61,Software,0,Disapproval,1,False,False
+509,129,130,Software,0,Disapproval,1,False,False
+510,607,608,Quality,2,No Explicit Reproach,0,True,False
+511,494,495,Software,0,Blame,3,False,False
+512,113,114,Quality,2,Disapproval,1,True,False
+513,20,21,Software,0,Blame,3,False,False
+514,579,580,Service,3,Disapproval,1,True,False
+515,236,237,Quality,2,Disapproval,1,True,False
+516,384,385,Software,0,No Explicit Reproach,0,False,False
+517,774,775,Service,3,Accusation,2,True,False
+518,29,30,Software,0,Disapproval,1,False,False
+519,898,899,Software,0,Accusation,2,False,False
+520,556,557,Software,0,Blame,3,False,False
+521,269,270,Software,0,Blame,3,False,False
+522,411,412,Hardware,1,No Explicit Reproach,0,True,False
+523,848,849,Service,3,Accusation,2,True,False
+524,744,745,Software,0,Blame,3,False,False

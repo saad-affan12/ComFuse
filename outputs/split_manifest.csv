@@ -1,0 +1,916 @@
+sample_id,thread_id,split,aspect,aspect_id,severity,severity_id,image_availability
+769,770,train,Hardware,1,Blame,3,False
+129,130,train,Software,0,Disapproval,1,False
+589,590,train,Software,0,Blame,3,False
+836,837,train,Software,0,Accusation,2,False
+786,787,train,Software,0,Blame,3,False
+467,468,train,Software,0,Blame,3,False
+139,140,train,Software,0,Disapproval,1,False
+622,623,train,Software,0,Blame,3,False
+83,84,train,Software,0,Disapproval,1,False
+838,839,train,Software,0,Accusation,2,False
+700,701,train,Software,0,Blame,3,False
+2,3,train,Software,0,No Explicit Reproach,0,False
+518,519,train,Packaging,5,Accusation,2,False
+627,628,train,Software,0,Blame,3,False
+56,57,train,Hardware,1,Disapproval,1,False
+175,176,train,Software,0,Disapproval,1,False
+88,89,train,Software,0,No Explicit Reproach,0,False
+784,785,train,Hardware,1,Accusation,2,False
+354,355,train,Software,0,Disapproval,1,False
+742,743,train,Software,0,Blame,3,False
+454,455,train,Quality,2,Disapproval,1,False
+722,723,train,Hardware,1,Accusation,2,False
+605,606,train,Software,0,Blame,3,False
+908,909,train,Software,0,Blame,3,False
+249,250,train,Software,0,Blame,3,False
+330,331,train,Software,0,Disapproval,1,False
+220,221,train,Software,0,Disapproval,1,False
+465,466,train,Software,0,Disapproval,1,False
+173,174,train,Software,0,No Explicit Reproach,0,False
+696,697,train,Hardware,1,Blame,3,False
+375,376,train,Software,0,Disapproval,1,False
+728,729,train,Software,0,No Explicit Reproach,0,False
+795,796,train,Software,0,Disapproval,1,False
+344,345,train,Software,0,Disapproval,1,False
+104,105,train,Software,0,No Explicit Reproach,0,False
+115,116,train,Quality,2,No Explicit Reproach,0,False
+638,639,train,Software,0,Blame,3,False
+20,21,train,Software,0,Blame,3,False
+180,181,train,Software,0,No Explicit Reproach,0,False
+297,298,train,Software,0,No Explicit Reproach,0,False
+60,61,train,Software,0,Disapproval,1,False
+268,269,train,Software,0,Disapproval,1,False
+792,793,train,Software,0,Accusation,2,False
+753,754,train,Hardware,1,Accusation,2,False
+388,389,train,Software,0,No Explicit Reproach,0,False
+578,579,train,Software,0,Blame,3,False
+764,765,train,Software,0,Blame,3,False
+571,572,train,Software,0,Blame,3,False
+215,216,train,Quality,2,Blame,3,False
+558,559,train,Software,0,Blame,3,False
+252,253,train,Service,3,Accusation,2,False
+572,573,train,Software,0,Disapproval,1,False
+346,347,train,Software,0,Blame,3,False
+609,610,train,Software,0,Blame,3,False
+760,761,train,Software,0,Accusation,2,False
+539,540,train,Hardware,1,Disapproval,1,False
+716,717,train,Software,0,Disapproval,1,False
+138,139,train,Software,0,Disapproval,1,False
+814,815,train,Software,0,Disapproval,1,False
+484,485,train,Hardware,1,No Explicit Reproach,0,False
+719,720,train,Software,0,Blame,3,False
+689,690,train,Software,0,Blame,3,False
+266,267,train,Software,0,Disapproval,1,False
+582,583,train,Hardware,1,Blame,3,False
+102,103,train,Software,0,Disapproval,1,False
+574,575,train,Software,0,Blame,3,False
+182,183,train,Software,0,No Explicit Reproach,0,False
+112,113,train,Software,0,No Explicit Reproach,0,False
+360,361,train,Software,0,No Explicit Reproach,0,False
+628,629,train,Software,0,Blame,3,False
+310,311,train,Quality,2,Disapproval,1,False
+191,192,train,Software,0,Disapproval,1,False
+731,732,train,Service,3,Disapproval,1,False
+289,290,train,Software,0,Disapproval,1,False
+754,755,train,Software,0,Blame,3,False
+832,833,train,Software,0,Disapproval,1,False
+208,209,train,Software,0,Disapproval,1,False
+185,186,train,Software,0,Disapproval,1,False
+133,134,train,Software,0,Blame,3,False
+45,46,train,Software,0,No Explicit Reproach,0,False
+671,672,train,Software,0,Blame,3,False
+679,680,train,Software,0,Blame,3,False
+200,201,train,Quality,2,Disapproval,1,False
+99,100,train,Software,0,Disapproval,1,False
+883,884,train,Hardware,1,Accusation,2,False
+863,864,train,Price,4,No Explicit Reproach,0,False
+544,545,train,Software,0,Blame,3,False
+212,213,train,Quality,2,Disapproval,1,False
+345,346,train,Software,0,Disapproval,1,False
+18,19,train,Software,0,No Explicit Reproach,0,False
+421,422,train,Service,3,Blame,3,False
+675,676,train,Software,0,Accusation,2,False
+36,37,train,Software,0,Disapproval,1,False
+101,102,train,Software,0,Disapproval,1,False
+914,915,train,Software,0,Accusation,2,False
+687,688,train,Price,4,Blame,3,False
+871,872,train,Hardware,1,Accusation,2,False
+873,874,train,Software,0,Disapproval,1,False
+545,546,train,Software,0,Blame,3,False
+798,799,train,Software,0,Accusation,2,False
+107,108,train,Software,0,Disapproval,1,False
+40,41,train,Software,0,No Explicit Reproach,0,False
+96,97,train,Software,0,No Explicit Reproach,0,False
+747,748,train,Software,0,Disapproval,1,False
+902,903,train,Software,0,Accusation,2,False
+25,26,train,Software,0,Disapproval,1,False
+659,660,train,Software,0,Blame,3,False
+69,70,train,Software,0,No Explicit Reproach,0,False
+611,612,train,Service,3,Disapproval,1,False
+21,22,train,Hardware,1,Disapproval,1,False
+428,429,train,Software,0,No Explicit Reproach,0,False
+84,85,train,Software,0,Disapproval,1,False
+400,401,train,Software,0,Blame,3,False
+6,7,train,Service,3,No Explicit Reproach,0,False
+529,530,train,Packaging,5,Blame,3,False
+893,894,train,Software,0,Accusation,2,False
+808,809,train,Software,0,Disapproval,1,False
+475,476,train,Software,0,Disapproval,1,False
+98,99,train,Service,3,No Explicit Reproach,0,False
+725,726,train,Hardware,1,Accusation,2,False
+392,393,train,Software,0,Blame,3,False
+303,304,train,Quality,2,Blame,3,False
+569,570,train,Packaging,5,Blame,3,False
+649,650,train,Software,0,No Explicit Reproach,0,False
+517,518,train,Software,0,Blame,3,False
+42,43,train,Software,0,Disapproval,1,False
+535,536,train,Software,0,Blame,3,False
+806,807,train,Hardware,1,Disapproval,1,False
+79,80,train,Software,0,Disapproval,1,False
+278,279,train,Service,3,No Explicit Reproach,0,False
+329,330,train,Software,0,No Explicit Reproach,0,False
+394,395,train,Software,0,Disapproval,1,False
+532,533,train,Software,0,Blame,3,False
+43,44,train,Software,0,No Explicit Reproach,0,False
+61,62,train,Software,0,No Explicit Reproach,0,False
+579,580,train,Service,3,Disapproval,1,False
+460,461,train,Software,0,Blame,3,False
+898,899,train,Software,0,Accusation,2,False
+446,447,train,Software,0,Blame,3,False
+681,682,train,Software,0,Blame,3,False
+724,725,train,Software,0,Blame,3,False
+331,332,train,Service,3,No Explicit Reproach,0,False
+550,551,train,Software,0,Blame,3,False
+401,402,train,Software,0,No Explicit Reproach,0,False
+127,128,train,Software,0,Disapproval,1,False
+134,135,train,Quality,2,Disapproval,1,False
+16,17,train,Software,0,Disapproval,1,False
+307,308,train,Software,0,No Explicit Reproach,0,False
+371,372,train,Software,0,Disapproval,1,False
+470,471,train,Software,0,Accusation,2,False
+870,871,train,Software,0,Accusation,2,False
+669,670,train,Hardware,1,Accusation,2,False
+561,562,train,Software,0,Blame,3,False
+674,675,train,Software,0,Disapproval,1,False
+721,722,train,Hardware,1,No Explicit Reproach,0,False
+882,883,train,Software,0,No Explicit Reproach,0,False
+128,129,train,Software,0,Disapproval,1,False
+280,281,train,Software,0,Disapproval,1,False
+714,715,train,Software,0,Blame,3,False
+155,156,train,Quality,2,Disapproval,1,False
+151,152,train,Software,0,Disapproval,1,False
+176,177,train,Quality,2,No Explicit Reproach,0,False
+503,504,train,Software,0,Disapproval,1,False
+738,739,train,Software,0,Accusation,2,False
+439,440,train,Price,4,Blame,3,False
+108,109,train,Software,0,Disapproval,1,False
+779,780,train,Software,0,Blame,3,False
+581,582,train,Software,0,Blame,3,False
+495,496,train,Software,0,Blame,3,False
+767,768,train,Quality,2,Blame,3,False
+706,707,train,Software,0,Blame,3,False
+86,87,train,Service,3,No Explicit Reproach,0,False
+82,83,train,Quality,2,Disapproval,1,False
+642,643,train,Software,0,Accusation,2,False
+352,353,train,Software,0,Disapproval,1,False
+156,157,train,Software,0,Disapproval,1,False
+31,32,train,Hardware,1,No Explicit Reproach,0,False
+342,343,train,Software,0,No Explicit Reproach,0,False
+283,284,train,Software,0,Accusation,2,False
+177,178,train,Software,0,No Explicit Reproach,0,False
+15,16,train,Software,0,No Explicit Reproach,0,False
+75,76,train,Software,0,No Explicit Reproach,0,False
+305,306,train,Software,0,No Explicit Reproach,0,False
+788,789,train,Software,0,Accusation,2,False
+664,665,train,Software,0,Blame,3,False
+478,479,train,Software,0,Accusation,2,False
+688,689,train,Software,0,Blame,3,False
+187,188,train,Software,0,No Explicit Reproach,0,False
+694,695,train,Software,0,Blame,3,False
+670,671,train,Software,0,Blame,3,False
+114,115,train,Software,0,No Explicit Reproach,0,False
+620,621,train,Software,0,Blame,3,False
+216,217,train,Quality,2,No Explicit Reproach,0,False
+432,433,train,Quality,2,Disapproval,1,False
+737,738,train,Hardware,1,Accusation,2,False
+311,312,train,Software,0,Disapproval,1,False
+143,144,train,Software,0,Accusation,2,False
+807,808,train,Software,0,Blame,3,False
+907,908,train,Hardware,1,Blame,3,False
+878,879,train,Price,4,No Explicit Reproach,0,False
+511,512,train,Software,0,Disapproval,1,False
+382,383,train,Software,0,Accusation,2,False
+55,56,train,Software,0,No Explicit Reproach,0,False
+301,302,train,Software,0,No Explicit Reproach,0,False
+415,416,train,Hardware,1,No Explicit Reproach,0,False
+682,683,train,Software,0,Accusation,2,False
+875,876,train,Software,0,Accusation,2,False
+543,544,train,Hardware,1,Blame,3,False
+380,381,train,Software,0,Disapproval,1,False
+214,215,train,Quality,2,No Explicit Reproach,0,False
+835,836,train,Software,0,Accusation,2,False
+851,852,train,Software,0,Blame,3,False
+181,182,train,Quality,2,No Explicit Reproach,0,False
+557,558,train,Software,0,Blame,3,False
+684,685,train,Hardware,1,Accusation,2,False
+587,588,train,Software,0,Blame,3,False
+712,713,train,Software,0,Blame,3,False
+644,645,train,Software,0,Accusation,2,False
+614,615,train,Software,0,Blame,3,False
+647,648,train,Software,0,Blame,3,False
+678,679,train,Hardware,1,Accusation,2,False
+772,773,train,Software,0,Blame,3,False
+205,206,train,Service,3,Blame,3,False
+336,337,train,Software,0,No Explicit Reproach,0,False
+791,792,train,Software,0,Accusation,2,False
+673,674,train,Software,0,Disapproval,1,False
+457,458,train,Price,4,Blame,3,False
+818,819,train,Software,0,Accusation,2,False
+597,598,train,Software,0,Blame,3,False
+157,158,train,Software,0,No Explicit Reproach,0,False
+90,91,train,Software,0,Disapproval,1,False
+322,323,train,Software,0,Disapproval,1,False
+531,532,train,Software,0,Disapproval,1,False
+469,470,train,Software,0,Accusation,2,False
+226,227,train,Software,0,No Explicit Reproach,0,False
+223,224,train,Software,0,No Explicit Reproach,0,False
+449,450,train,Software,0,Disapproval,1,False
+711,712,train,Software,0,Disapproval,1,False
+41,42,train,Hardware,1,Disapproval,1,False
+824,825,train,Hardware,1,Accusation,2,False
+601,602,train,Software,0,Blame,3,False
+758,759,train,Software,0,Blame,3,False
+591,592,train,Software,0,Blame,3,False
+489,490,train,Software,0,Blame,3,False
+85,86,train,Software,0,Disapproval,1,False
+93,94,train,Software,0,No Explicit Reproach,0,False
+416,417,train,Software,0,Blame,3,False
+269,270,train,Software,0,Blame,3,False
+506,507,train,Software,0,Blame,3,False
+787,788,train,Software,0,Blame,3,False
+184,185,train,Software,0,No Explicit Reproach,0,False
+412,413,train,Software,0,Disapproval,1,False
+429,430,train,Software,0,Accusation,2,False
+148,149,train,Software,0,No Explicit Reproach,0,False
+391,392,train,Software,0,No Explicit Reproach,0,False
+530,531,train,Software,0,Blame,3,False
+57,58,train,Software,0,No Explicit Reproach,0,False
+812,813,train,Software,0,Accusation,2,False
+228,229,train,Software,0,Disapproval,1,False
+358,359,train,Software,0,Disapproval,1,False
+491,492,train,Software,0,Blame,3,False
+293,294,train,Packaging,5,Disapproval,1,False
+92,93,train,Hardware,1,No Explicit Reproach,0,False
+110,111,train,Service,3,No Explicit Reproach,0,False
+221,222,train,Software,0,Disapproval,1,False
+420,421,train,Software,0,No Explicit Reproach,0,False
+186,187,train,Software,0,No Explicit Reproach,0,False
+505,506,train,Software,0,Blame,3,False
+471,472,train,Software,0,Blame,3,False
+842,843,train,Software,0,Accusation,2,False
+290,291,train,Software,0,Blame,3,False
+349,350,train,Software,0,Blame,3,False
+751,752,train,Hardware,1,Blame,3,False
+732,733,train,Software,0,Blame,3,False
+800,801,train,Software,0,Blame,3,False
+834,835,train,Price,4,Accusation,2,False
+106,107,train,Service,3,No Explicit Reproach,0,False
+286,287,train,Software,0,Accusation,2,False
+111,112,train,Software,0,No Explicit Reproach,0,False
+626,627,train,Hardware,1,Blame,3,False
+431,432,train,Hardware,1,Disapproval,1,False
+124,125,train,Software,0,Disapproval,1,False
+204,205,train,Software,0,No Explicit Reproach,0,False
+593,594,train,Service,3,Blame,3,False
+178,179,train,Software,0,No Explicit Reproach,0,False
+109,110,train,Software,0,Disapproval,1,False
+63,64,train,Quality,2,Disapproval,1,False
+113,114,train,Quality,2,Disapproval,1,False
+796,797,train,Software,0,No Explicit Reproach,0,False
+190,191,train,Software,0,No Explicit Reproach,0,False
+720,721,train,Software,0,Blame,3,False
+828,829,train,Software,0,Accusation,2,False
+770,771,train,Software,0,Accusation,2,False
+656,657,train,Software,0,Blame,3,False
+723,724,train,Software,0,Blame,3,False
+860,861,train,Software,0,Blame,3,False
+752,753,train,Software,0,Disapproval,1,False
+575,576,train,Software,0,Blame,3,False
+58,59,train,Hardware,1,Disapproval,1,False
+877,878,train,Hardware,1,Accusation,2,False
+67,68,train,Software,0,Disapproval,1,False
+37,38,train,Quality,2,No Explicit Reproach,0,False
+869,870,train,Software,0,Blame,3,False
+794,795,train,Software,0,Blame,3,False
+641,642,train,Software,0,Accusation,2,False
+376,377,train,Software,0,Accusation,2,False
+636,637,train,Hardware,1,Accusation,2,False
+19,20,train,Software,0,No Explicit Reproach,0,False
+436,437,train,Software,0,Disapproval,1,False
+233,234,train,Software,0,No Explicit Reproach,0,False
+339,340,train,Quality,2,Accusation,2,False
+367,368,train,Software,0,No Explicit Reproach,0,False
+46,47,train,Hardware,1,No Explicit Reproach,0,False
+355,356,train,Software,0,No Explicit Reproach,0,False
+76,77,train,Software,0,No Explicit Reproach,0,False
+562,563,train,Software,0,Disapproval,1,False
+254,255,train,Software,0,Accusation,2,False
+497,498,train,Software,0,Disapproval,1,False
+739,740,train,Hardware,1,Blame,3,False
+72,73,train,Service,3,No Explicit Reproach,0,False
+315,316,train,Software,0,No Explicit Reproach,0,False
+279,280,train,Software,0,No Explicit Reproach,0,False
+847,848,train,Software,0,Accusation,2,False
+94,95,train,Software,0,Disapproval,1,False
+894,895,train,Software,0,Accusation,2,False
+409,410,train,Hardware,1,No Explicit Reproach,0,False
+244,245,train,Quality,2,Blame,3,False
+785,786,train,Software,0,Accusation,2,False
+426,427,train,Software,0,Disapproval,1,False
+170,171,train,Hardware,1,No Explicit Reproach,0,False
+236,237,train,Quality,2,Disapproval,1,False
+583,584,train,Service,3,Blame,3,False
+32,33,train,Quality,2,Disapproval,1,False
+408,409,train,Service,3,Disapproval,1,False
+665,666,train,Software,0,Blame,3,False
+327,328,train,Software,0,Blame,3,False
+639,640,train,Software,0,No Explicit Reproach,0,False
+592,593,train,Hardware,1,Blame,3,False
+797,798,train,Software,0,Disapproval,1,False
+707,708,train,Software,0,Disapproval,1,False
+89,90,train,Software,0,Disapproval,1,False
+729,730,train,Software,0,Accusation,2,False
+262,263,train,Software,0,No Explicit Reproach,0,False
+853,854,train,Service,3,Accusation,2,False
+884,885,train,Software,0,Blame,3,False
+717,718,train,Software,0,Blame,3,False
+586,587,train,Quality,2,Blame,3,False
+225,226,train,Quality,2,Blame,3,False
+885,886,train,Software,0,Accusation,2,False
+849,850,train,Software,0,Accusation,2,False
+314,315,train,Software,0,No Explicit Reproach,0,False
+699,700,train,Software,0,Accusation,2,False
+556,557,train,Software,0,Blame,3,False
+817,818,train,Packaging,5,Accusation,2,False
+17,18,train,Software,0,Disapproval,1,False
+815,816,train,Software,0,Accusation,2,False
+433,434,train,Software,0,Accusation,2,False
+746,747,train,Hardware,1,Disapproval,1,False
+309,310,train,Software,0,No Explicit Reproach,0,False
+450,451,train,Software,0,Blame,3,False
+499,500,train,Software,0,Accusation,2,False
+351,352,train,Software,0,Accusation,2,False
+912,913,train,Software,0,Blame,3,False
+513,514,train,Software,0,Blame,3,False
+748,749,train,Hardware,1,Accusation,2,False
+515,516,train,Software,0,Blame,3,False
+476,477,train,Software,0,Blame,3,False
+434,435,train,Software,0,Blame,3,False
+564,565,train,Software,0,Accusation,2,False
+341,342,train,Quality,2,Disapproval,1,False
+744,745,train,Software,0,Blame,3,False
+789,790,train,Software,0,Disapproval,1,False
+282,283,train,Software,0,No Explicit Reproach,0,False
+261,262,train,Software,0,No Explicit Reproach,0,False
+790,791,train,Service,3,Disapproval,1,False
+172,173,train,Software,0,Disapproval,1,False
+332,333,train,Software,0,No Explicit Reproach,0,False
+805,806,train,Software,0,Accusation,2,False
+441,442,train,Software,0,Accusation,2,False
+377,378,train,Software,0,Accusation,2,False
+549,550,train,Software,0,Blame,3,False
+97,98,train,Software,0,No Explicit Reproach,0,False
+438,439,train,Quality,2,Disapproval,1,False
+886,887,train,Software,0,Blame,3,False
+29,30,train,Software,0,Disapproval,1,False
+435,436,train,Software,0,Disapproval,1,False
+359,360,train,Software,0,Accusation,2,False
+48,49,train,Software,0,Disapproval,1,False
+568,569,train,Software,0,Blame,3,False
+437,438,train,Hardware,1,Disapproval,1,False
+691,692,train,Hardware,1,Blame,3,False
+231,232,train,Service,3,No Explicit Reproach,0,False
+553,554,train,Software,0,Blame,3,False
+693,694,train,Software,0,Blame,3,False
+690,691,train,Software,0,Accusation,2,False
+493,494,train,Software,0,Blame,3,False
+763,764,train,Hardware,1,Accusation,2,False
+555,556,train,Software,0,No Explicit Reproach,0,False
+120,121,train,Software,0,No Explicit Reproach,0,False
+317,318,train,Software,0,Blame,3,False
+667,668,train,Software,0,Blame,3,False
+629,630,train,Software,0,No Explicit Reproach,0,False
+861,862,train,Software,0,No Explicit Reproach,0,False
+837,838,train,Software,0,Accusation,2,False
+524,525,train,Software,0,Blame,3,False
+12,13,train,Software,0,Disapproval,1,False
+462,463,train,Software,0,Disapproval,1,False
+481,482,train,Software,0,Accusation,2,False
+507,508,train,Software,0,Disapproval,1,False
+150,151,train,Software,0,Disapproval,1,False
+363,364,train,Software,0,Disapproval,1,False
+590,591,train,Service,3,No Explicit Reproach,0,False
+9,10,train,Software,0,Disapproval,1,False
+527,528,train,Software,0,Blame,3,False
+607,608,train,Quality,2,No Explicit Reproach,0,False
+154,155,train,Software,0,Disapproval,1,False
+232,233,train,Hardware,1,No Explicit Reproach,0,False
+34,35,train,Software,0,No Explicit Reproach,0,False
+131,132,train,Software,0,Disapproval,1,False
+398,399,train,Software,0,Blame,3,False
+207,208,train,Service,3,No Explicit Reproach,0,False
+494,495,train,Software,0,Blame,3,False
+809,810,train,Software,0,Disapproval,1,False
+468,469,train,Software,0,Disapproval,1,False
+366,367,train,Software,0,Disapproval,1,False
+287,288,train,Software,0,No Explicit Reproach,0,False
+328,329,train,Software,0,No Explicit Reproach,0,False
+473,474,train,Software,0,Accusation,2,False
+33,34,train,Software,0,Disapproval,1,False
+799,800,train,Service,3,No Explicit Reproach,0,False
+881,882,train,Software,0,Disapproval,1,False
+595,596,train,Software,0,Blame,3,False
+395,396,train,Software,0,No Explicit Reproach,0,False
+316,317,train,Software,0,No Explicit Reproach,0,False
+472,473,train,Software,0,Blame,3,False
+525,526,train,Service,3,No Explicit Reproach,0,False
+281,282,train,Hardware,1,No Explicit Reproach,0,False
+403,404,train,Software,0,Disapproval,1,False
+203,204,train,Software,0,Disapproval,1,False
+683,684,train,Software,0,Accusation,2,False
+218,219,train,Software,0,No Explicit Reproach,0,False
+483,484,train,Software,0,No Explicit Reproach,0,False
+554,555,train,Software,0,Accusation,2,False
+447,448,train,Software,0,Accusation,2,False
+374,375,train,Software,0,Disapproval,1,False
+512,513,train,Hardware,1,Blame,3,False
+777,778,train,Software,0,Blame,3,False
+890,891,train,Hardware,1,Accusation,2,False
+294,295,train,Software,0,No Explicit Reproach,0,False
+704,705,train,Software,0,Blame,3,False
+774,775,train,Service,3,Accusation,2,False
+848,849,train,Service,3,Accusation,2,False
+560,561,train,Software,0,Disapproval,1,False
+284,285,train,Software,0,No Explicit Reproach,0,False
+594,595,train,Software,0,Blame,3,False
+637,638,train,Software,0,Blame,3,False
+276,277,train,Software,0,No Explicit Reproach,0,False
+453,454,train,Software,0,Blame,3,False
+782,783,train,Software,0,Accusation,2,False
+537,538,train,Service,3,Disapproval,1,False
+897,898,train,Software,0,Accusation,2,False
+378,379,train,Software,0,Disapproval,1,False
+118,119,train,Software,0,Disapproval,1,False
+551,552,train,Hardware,1,Blame,3,False
+195,196,train,Software,0,Disapproval,1,False
+239,240,train,Software,0,Disapproval,1,False
+645,646,train,Software,0,Blame,3,False
+521,522,train,Software,0,Blame,3,False
+393,394,train,Software,0,Disapproval,1,False
+623,624,train,Software,0,Accusation,2,False
+442,443,train,Quality,2,Blame,3,False
+275,276,train,Software,0,Blame,3,False
+300,301,train,Software,0,No Explicit Reproach,0,False
+100,101,train,Quality,2,Disapproval,1,False
+242,243,train,Software,0,No Explicit Reproach,0,False
+424,425,train,Software,0,Blame,3,False
+619,620,train,Software,0,Blame,3,False
+889,890,train,Software,0,Accusation,2,False
+718,719,train,Software,0,Blame,3,False
+405,406,train,Software,0,Blame,3,False
+533,534,train,Software,0,Blame,3,False
+247,248,train,Software,0,No Explicit Reproach,0,False
+485,486,train,Hardware,1,Accusation,2,False
+54,55,train,Hardware,1,Disapproval,1,False
+384,385,train,Software,0,No Explicit Reproach,0,False
+161,162,train,Software,0,Blame,3,False
+381,382,train,Software,0,Disapproval,1,False
+264,265,train,Quality,2,Disapproval,1,False
+333,334,train,Quality,2,Disapproval,1,False
+686,687,train,Service,3,Accusation,2,False
+534,535,train,Software,0,Blame,3,False
+773,774,train,Software,0,Blame,3,False
+740,741,train,Software,0,Blame,3,False
+240,241,train,Service,3,No Explicit Reproach,0,False
+477,478,train,Software,0,Blame,3,False
+164,165,train,Software,0,No Explicit Reproach,0,False
+8,9,train,Software,0,Disapproval,1,False
+292,293,train,Software,0,No Explicit Reproach,0,False
+125,126,train,Software,0,Disapproval,1,False
+843,844,train,Software,0,Accusation,2,False
+650,651,train,Software,0,Blame,3,False
+526,527,train,Software,0,Blame,3,False
+514,515,train,Quality,2,Blame,3,False
+234,235,train,Software,0,Blame,3,False
+38,39,train,Software,0,No Explicit Reproach,0,False
+741,742,train,Software,0,Accusation,2,False
+862,863,train,Software,0,Disapproval,1,False
+288,289,train,Software,0,Disapproval,1,False
+492,493,train,Service,3,Disapproval,1,False
+423,424,train,Software,0,Disapproval,1,False
+274,275,train,Software,0,Blame,3,False
+319,320,train,Software,0,No Explicit Reproach,0,False
+504,505,train,Software,0,No Explicit Reproach,0,False
+116,117,train,Software,0,Disapproval,1,False
+680,681,train,Software,0,Blame,3,False
+822,823,train,Service,3,No Explicit Reproach,0,False
+559,560,train,Software,0,Blame,3,False
+852,853,train,Hardware,1,Accusation,2,False
+487,488,train,Packaging,5,Blame,3,False
+163,164,train,Software,0,No Explicit Reproach,0,False
+480,481,train,Software,0,Accusation,2,False
+540,541,train,Software,0,Blame,3,False
+296,297,train,Software,0,No Explicit Reproach,0,False
+320,321,train,Service,3,No Explicit Reproach,0,False
+804,805,train,Software,0,Blame,3,False
+411,412,train,Hardware,1,No Explicit Reproach,0,False
+357,358,train,Software,0,Disapproval,1,False
+500,501,train,Software,0,Blame,3,False
+313,314,train,Software,0,Disapproval,1,False
+273,274,train,Software,0,Blame,3,False
+879,880,train,Software,0,Disapproval,1,False
+624,625,train,Software,0,Disapproval,1,False
+30,31,train,Software,0,No Explicit Reproach,0,False
+295,296,train,Software,0,No Explicit Reproach,0,False
+640,641,train,Software,0,Accusation,2,False
+895,896,train,Software,0,No Explicit Reproach,0,False
+147,148,train,Software,0,Disapproval,1,False
+146,147,train,Software,0,Accusation,2,False
+224,225,train,Software,0,Blame,3,False
+80,81,train,Software,0,No Explicit Reproach,0,False
+419,420,train,Quality,2,No Explicit Reproach,0,False
+466,467,train,Software,0,Blame,3,False
+350,351,train,Software,0,Disapproval,1,False
+547,548,train,Software,0,Blame,3,False
+896,897,train,Software,0,Accusation,2,False
+227,228,train,Software,0,Disapproval,1,False
+321,322,train,Software,0,Disapproval,1,False
+73,74,train,Hardware,1,Disapproval,1,False
+756,757,train,Software,0,Blame,3,False
+0,1,train,Software,0,No Explicit Reproach,0,False
+53,54,train,Software,0,Disapproval,1,False
+874,875,train,Software,0,Accusation,2,False
+235,236,train,Software,0,Blame,3,False
+47,48,train,Hardware,1,Disapproval,1,False
+243,244,train,Quality,2,Disapproval,1,False
+77,78,train,Software,0,Disapproval,1,False
+510,511,train,Software,0,Accusation,2,False
+850,851,train,Service,3,Accusation,2,False
+827,828,train,Service,3,No Explicit Reproach,0,False
+819,820,train,Hardware,1,Blame,3,False
+343,344,train,Software,0,Disapproval,1,False
+117,118,train,Software,0,No Explicit Reproach,0,False
+183,184,train,Software,0,No Explicit Reproach,0,False
+59,60,train,Software,0,Disapproval,1,False
+603,604,train,Software,0,Blame,3,False
+599,600,train,Quality,2,Blame,3,False
+364,365,train,Hardware,1,No Explicit Reproach,0,False
+830,831,train,Service,3,Disapproval,1,False
+245,246,train,Software,0,Disapproval,1,False
+703,704,train,Quality,2,Blame,3,False
+407,408,train,Software,0,Disapproval,1,False
+3,4,train,Hardware,1,Disapproval,1,False
+418,419,train,Software,0,Disapproval,1,False
+701,702,train,Software,0,Accusation,2,False
+461,462,train,Software,0,Accusation,2,False
+783,784,train,Software,0,Accusation,2,False
+606,607,train,Software,0,Blame,3,False
+749,750,train,Software,0,Blame,3,False
+5,6,train,Software,0,No Explicit Reproach,0,False
+397,398,train,Software,0,No Explicit Reproach,0,False
+596,597,train,Software,0,Disapproval,1,False
+238,239,train,Software,0,Blame,3,False
+677,678,train,Software,0,Blame,3,False
+271,272,train,Software,0,No Explicit Reproach,0,False
+887,888,train,Software,0,Disapproval,1,False
+702,703,train,Software,0,Accusation,2,False
+285,286,train,Software,0,No Explicit Reproach,0,False
+304,305,train,Software,0,Disapproval,1,False
+427,428,train,Software,0,Disapproval,1,False
+692,693,train,Quality,2,Blame,3,False
+654,655,train,Software,0,Blame,3,False
+22,23,train,Software,0,Disapproval,1,False
+211,212,train,Software,0,Disapproval,1,False
+829,830,train,Software,0,Blame,3,False
+456,457,train,Software,0,Blame,3,False
+372,373,train,Software,0,Disapproval,1,False
+726,727,train,Hardware,1,Accusation,2,False
+698,699,train,Software,0,Disapproval,1,False
+811,812,train,Software,0,Accusation,2,False
+651,652,train,Hardware,1,Blame,3,False
+27,28,train,Software,0,Disapproval,1,False
+445,446,train,Software,0,Disapproval,1,False
+91,92,train,Service,3,No Explicit Reproach,0,False
+608,609,train,Software,0,Accusation,2,False
+396,397,train,Software,0,Blame,3,False
+193,194,train,Quality,2,No Explicit Reproach,0,False
+617,618,train,Hardware,1,Accusation,2,False
+695,696,train,Software,0,Accusation,2,False
+141,142,train,Service,3,Disapproval,1,False
+81,82,train,Quality,2,Blame,3,False
+464,465,train,Software,0,Disapproval,1,False
+610,611,train,Software,0,Blame,3,False
+136,137,train,Software,0,No Explicit Reproach,0,False
+910,911,train,Software,0,Disapproval,1,False
+906,907,train,Software,0,Accusation,2,False
+657,658,train,Software,0,Blame,3,False
+646,647,train,Software,0,Disapproval,1,False
+909,910,train,Software,0,Blame,3,False
+71,72,train,Hardware,1,No Explicit Reproach,0,False
+766,767,train,Software,0,Blame,3,False
+565,566,train,Software,0,Blame,3,False
+385,386,train,Software,0,Disapproval,1,False
+757,758,train,Software,0,Disapproval,1,False
+490,491,train,Software,0,Blame,3,False
+631,632,train,Software,0,Disapproval,1,False
+229,230,train,Service,3,Disapproval,1,False
+775,776,train,Hardware,1,Accusation,2,False
+855,856,train,Price,4,Disapproval,1,False
+386,387,train,Software,0,Disapproval,1,False
+901,902,train,Software,0,Disapproval,1,False
+425,426,train,Hardware,1,No Explicit Reproach,0,False
+122,123,train,Software,0,Disapproval,1,False
+839,840,train,Software,0,Accusation,2,False
+577,578,train,Software,0,Blame,3,False
+821,822,train,Hardware,1,Blame,3,False
+570,571,train,Software,0,Blame,3,False
+256,257,train,Software,0,Disapproval,1,False
+710,711,train,Service,3,Accusation,2,False
+340,341,train,Software,0,Disapproval,1,False
+451,452,train,Software,0,Blame,3,False
+496,497,val,Hardware,1,Accusation,2,False
+201,202,val,Software,0,No Explicit Reproach,0,False
+598,599,val,Software,0,Accusation,2,False
+194,195,val,Software,0,No Explicit Reproach,0,False
+188,189,val,Software,0,No Explicit Reproach,0,False
+880,881,val,Software,0,Blame,3,False
+370,371,val,Software,0,Disapproval,1,False
+846,847,val,Software,0,Accusation,2,False
+630,631,val,Software,0,Accusation,2,False
+160,161,val,Software,0,No Explicit Reproach,0,False
+548,549,val,Software,0,Accusation,2,False
+859,860,val,Software,0,Accusation,2,False
+685,686,val,Hardware,1,Blame,3,False
+444,445,val,Software,0,Blame,3,False
+708,709,val,Hardware,1,Blame,3,False
+810,811,val,Software,0,Blame,3,False
+621,622,val,Software,0,Blame,3,False
+509,510,val,Software,0,Blame,3,False
+823,824,val,Hardware,1,Accusation,2,False
+854,855,val,Software,0,No Explicit Reproach,0,False
+258,259,val,Software,0,Disapproval,1,False
+845,846,val,Software,0,Accusation,2,False
+816,817,val,Service,3,Blame,3,False
+272,273,val,Software,0,Accusation,2,False
+277,278,val,Software,0,No Explicit Reproach,0,False
+474,475,val,Software,0,Blame,3,False
+387,388,val,Software,0,No Explicit Reproach,0,False
+573,574,val,Software,0,Disapproval,1,False
+653,654,val,Packaging,5,Blame,3,False
+652,653,val,Software,0,Disapproval,1,False
+482,483,val,Software,0,Accusation,2,False
+410,411,val,Hardware,1,Disapproval,1,False
+171,172,val,Software,0,No Explicit Reproach,0,False
+248,249,val,Price,4,Blame,3,False
+613,614,val,Software,0,Blame,3,False
+14,15,val,Hardware,1,Disapproval,1,False
+668,669,val,Software,0,Disapproval,1,False
+174,175,val,Software,0,No Explicit Reproach,0,False
+324,325,val,Software,0,Blame,3,False
+745,746,val,Hardware,1,Accusation,2,False
+417,418,val,Software,0,Accusation,2,False
+230,231,val,Software,0,Blame,3,False
+383,384,val,Software,0,No Explicit Reproach,0,False
+516,517,val,Software,0,Disapproval,1,False
+761,762,val,Software,0,Accusation,2,False
+443,444,val,Service,3,Accusation,2,False
+676,677,val,Software,0,Blame,3,False
+255,256,val,Software,0,No Explicit Reproach,0,False
+78,79,val,Software,0,No Explicit Reproach,0,False
+780,781,val,Hardware,1,Accusation,2,False
+522,523,val,Software,0,Blame,3,False
+615,616,val,Software,0,Accusation,2,False
+905,906,val,Software,0,Accusation,2,False
+87,88,val,Service,3,No Explicit Reproach,0,False
+50,51,val,Software,0,No Explicit Reproach,0,False
+24,25,val,Software,0,No Explicit Reproach,0,False
+44,45,val,Software,0,Disapproval,1,False
+404,405,val,Hardware,1,Disapproval,1,False
+402,403,val,Quality,2,No Explicit Reproach,0,False
+68,69,val,Software,0,Disapproval,1,False
+715,716,val,Software,0,Blame,3,False
+95,96,val,Software,0,No Explicit Reproach,0,False
+479,480,val,Software,0,Blame,3,False
+362,363,val,Software,0,Disapproval,1,False
+165,166,val,Software,0,Disapproval,1,False
+159,160,val,Software,0,No Explicit Reproach,0,False
+210,211,val,Software,0,No Explicit Reproach,0,False
+103,104,val,Quality,2,Disapproval,1,False
+219,220,val,Quality,2,Disapproval,1,False
+209,210,val,Software,0,Disapproval,1,False
+765,766,val,Software,0,No Explicit Reproach,0,False
+658,659,val,Service,3,Disapproval,1,False
+856,857,val,Software,0,Accusation,2,False
+152,153,val,Software,0,Disapproval,1,False
+633,634,val,Software,0,Blame,3,False
+463,464,val,Software,0,Blame,3,False
+222,223,val,Quality,2,Disapproval,1,False
+399,400,val,Software,0,No Explicit Reproach,0,False
+137,138,val,Hardware,1,Accusation,2,False
+348,349,val,Software,0,No Explicit Reproach,0,False
+508,509,val,Software,0,Blame,3,False
+585,586,val,Software,0,Accusation,2,False
+844,845,val,Software,0,Disapproval,1,False
+520,521,val,Software,0,Blame,3,False
+655,656,val,Software,0,Disapproval,1,False
+265,266,val,Software,0,Blame,3,False
+406,407,val,Hardware,1,No Explicit Reproach,0,False
+338,339,val,Quality,2,No Explicit Reproach,0,False
+452,453,val,Software,0,Blame,3,False
+166,167,val,Software,0,Disapproval,1,False
+563,564,val,Software,0,Accusation,2,False
+26,27,val,Software,0,Disapproval,1,False
+121,122,val,Service,3,No Explicit Reproach,0,False
+523,524,val,Software,0,Blame,3,False
+162,163,val,Software,0,Blame,3,False
+528,529,val,Software,0,Disapproval,1,False
+153,154,val,Service,3,Disapproval,1,False
+662,663,val,Software,0,Blame,3,False
+448,449,val,Software,0,No Explicit Reproach,0,False
+196,197,val,Software,0,No Explicit Reproach,0,False
+888,889,val,Software,0,Blame,3,False
+857,858,val,Service,3,Disapproval,1,False
+241,242,val,Quality,2,No Explicit Reproach,0,False
+768,769,val,Software,0,Blame,3,False
+546,547,val,Software,0,Accusation,2,False
+459,460,val,Software,0,Blame,3,False
+1,2,val,Software,0,Disapproval,1,False
+168,169,val,Software,0,No Explicit Reproach,0,False
+308,309,val,Price,4,No Explicit Reproach,0,False
+825,826,val,Software,0,No Explicit Reproach,0,False
+734,735,val,Hardware,1,Blame,3,False
+580,581,val,Hardware,1,Blame,3,False
+326,327,val,Quality,2,Disapproval,1,False
+900,901,val,Software,0,Blame,3,False
+600,601,val,Quality,2,Blame,3,False
+144,145,val,Packaging,5,Disapproval,1,False
+625,626,val,Software,0,Disapproval,1,False
+291,292,val,Software,0,No Explicit Reproach,0,False
+253,254,val,Service,3,Blame,3,False
+759,760,val,Software,0,Blame,3,False
+299,300,val,Software,0,Disapproval,1,False
+158,159,val,Software,0,Disapproval,1,False
+119,120,val,Software,0,No Explicit Reproach,0,False
+616,617,val,Software,0,Blame,3,False
+198,199,val,Software,0,No Explicit Reproach,0,False
+709,710,val,Software,0,Blame,3,False
+259,260,val,Software,0,No Explicit Reproach,0,False
+697,698,val,Software,0,Blame,3,False
+379,380,val,Software,0,No Explicit Reproach,0,False
+801,802,val,Software,0,Accusation,2,False
+270,271,val,Software,0,Disapproval,1,False
+612,613,val,Software,0,Blame,3,False
+604,605,val,Software,0,Disapproval,1,False
+7,8,val,Software,0,Accusation,2,False
+519,520,val,Software,0,Blame,3,False
+246,247,val,Software,0,Blame,3,False
+903,904,val,Software,0,Blame,3,False
+413,414,test,Service,3,Blame,3,False
+455,456,test,Hardware,1,Blame,3,False
+730,731,test,Hardware,1,Disapproval,1,False
+267,268,test,Software,0,Disapproval,1,False
+831,832,test,Software,0,Accusation,2,False
+552,553,test,Quality,2,Disapproval,1,False
+498,499,test,Service,3,Disapproval,1,False
+488,489,test,Packaging,5,No Explicit Reproach,0,False
+643,644,test,Software,0,Accusation,2,False
+632,633,test,Software,0,Blame,3,False
+635,636,test,Software,0,Blame,3,False
+866,867,test,Software,0,No Explicit Reproach,0,False
+62,63,test,Software,0,Disapproval,1,False
+771,772,test,Software,0,Disapproval,1,False
+356,357,test,Software,0,Blame,3,False
+833,834,test,Software,0,Accusation,2,False
+335,336,test,Software,0,Disapproval,1,False
+179,180,test,Software,0,No Explicit Reproach,0,False
+892,893,test,Software,0,Blame,3,False
+422,423,test,Software,0,No Explicit Reproach,0,False
+713,714,test,Hardware,1,Blame,3,False
+52,53,test,Software,0,Disapproval,1,False
+323,324,test,Quality,2,No Explicit Reproach,0,False
+430,431,test,Service,3,Blame,3,False
+365,366,test,Software,0,Blame,3,False
+135,136,test,Software,0,Disapproval,1,False
+618,619,test,Hardware,1,Blame,3,False
+167,168,test,Software,0,Disapproval,1,False
+149,150,test,Quality,2,Disapproval,1,False
+10,11,test,Quality,2,No Explicit Reproach,0,False
+743,744,test,Software,0,Accusation,2,False
+486,487,test,Software,0,Accusation,2,False
+781,782,test,Hardware,1,Blame,3,False
+727,728,test,Software,0,Disapproval,1,False
+130,131,test,Software,0,Disapproval,1,False
+458,459,test,Software,0,Disapproval,1,False
+776,777,test,Software,0,Blame,3,False
+132,133,test,Hardware,1,Disapproval,1,False
+66,67,test,Software,0,Disapproval,1,False
+440,441,test,Quality,2,Blame,3,False
+538,539,test,Software,0,Blame,3,False
+876,877,test,Software,0,Disapproval,1,False
+826,827,test,Software,0,Blame,3,False
+541,542,test,Service,3,Blame,3,False
+189,190,test,Software,0,Disapproval,1,False
+263,264,test,Software,0,No Explicit Reproach,0,False
+414,415,test,Software,0,Blame,3,False
+70,71,test,Software,0,Disapproval,1,False
+123,124,test,Software,0,Disapproval,1,False
+169,170,test,Software,0,No Explicit Reproach,0,False
+368,369,test,Software,0,Blame,3,False
+213,214,test,Software,0,Blame,3,False
+126,127,test,Software,0,Disapproval,1,False
+11,12,test,Hardware,1,No Explicit Reproach,0,False
+250,251,test,Software,0,No Explicit Reproach,0,False
+911,912,test,Software,0,Accusation,2,False
+803,804,test,Software,0,Disapproval,1,False
+865,866,test,Software,0,Blame,3,False
+588,589,test,Software,0,Blame,3,False
+733,734,test,Software,0,Accusation,2,False
+666,667,test,Software,0,Blame,3,False
+661,662,test,Software,0,Blame,3,False
+567,568,test,Software,0,Blame,3,False
+502,503,test,Software,0,Blame,3,False
+750,751,test,Software,0,Blame,3,False
+39,40,test,Service,3,Disapproval,1,False
+735,736,test,Hardware,1,Accusation,2,False
+217,218,test,Quality,2,No Explicit Reproach,0,False
+192,193,test,Software,0,Disapproval,1,False
+820,821,test,Hardware,1,Disapproval,1,False
+660,661,test,Software,0,Accusation,2,False
+602,603,test,Software,0,Accusation,2,False
+306,307,test,Software,0,No Explicit Reproach,0,False
+369,370,test,Software,0,No Explicit Reproach,0,False
+373,374,test,Software,0,No Explicit Reproach,0,False
+206,207,test,Software,0,Disapproval,1,False
+74,75,test,Software,0,No Explicit Reproach,0,False
+840,841,test,Software,0,Blame,3,False
+864,865,test,Hardware,1,Accusation,2,False
+28,29,test,Software,0,No Explicit Reproach,0,False
+755,756,test,Service,3,Accusation,2,False
+325,326,test,Software,0,Disapproval,1,False
+197,198,test,Software,0,Disapproval,1,False
+65,66,test,Software,0,Disapproval,1,False
+390,391,test,Software,0,No Explicit Reproach,0,False
+841,842,test,Software,0,Disapproval,1,False
+762,763,test,Software,0,Accusation,2,False
+672,673,test,Software,0,Blame,3,False
+145,146,test,Software,0,Disapproval,1,False
+298,299,test,Software,0,No Explicit Reproach,0,False
+705,706,test,Service,3,Accusation,2,False
+257,258,test,Software,0,Disapproval,1,False
+634,635,test,Software,0,Blame,3,False
+312,313,test,Software,0,Disapproval,1,False
+566,567,test,Software,0,Blame,3,False
+4,5,test,Service,3,No Explicit Reproach,0,False
+334,335,test,Software,0,Disapproval,1,False
+891,892,test,Software,0,Blame,3,False
+867,868,test,Software,0,Disapproval,1,False
+542,543,test,Quality,2,Blame,3,False
+140,141,test,Software,0,Blame,3,False
+813,814,test,Software,0,Blame,3,False
+251,252,test,Software,0,Accusation,2,False
+64,65,test,Software,0,No Explicit Reproach,0,False
+260,261,test,Software,0,No Explicit Reproach,0,False
+648,649,test,Price,4,Blame,3,False
+361,362,test,Software,0,Disapproval,1,False
+302,303,test,Software,0,No Explicit Reproach,0,False
+802,803,test,Software,0,Accusation,2,False
+202,203,test,Software,0,No Explicit Reproach,0,False
+237,238,test,Software,0,Disapproval,1,False
+858,859,test,Service,3,Disapproval,1,False
+501,502,test,Software,0,Blame,3,False
+49,50,test,Software,0,No Explicit Reproach,0,False
+904,905,test,Software,0,No Explicit Reproach,0,False
+872,873,test,Hardware,1,Accusation,2,False
+337,338,test,Software,0,No Explicit Reproach,0,False
+736,737,test,Hardware,1,Blame,3,False
+868,869,test,Hardware,1,Accusation,2,False
+318,319,test,Quality,2,Disapproval,1,False
+389,390,test,Software,0,No Explicit Reproach,0,False
+142,143,test,Software,0,No Explicit Reproach,0,False
+51,52,test,Software,0,No Explicit Reproach,0,False
+199,200,test,Software,0,Disapproval,1,False
+23,24,test,Software,0,Disapproval,1,False
+35,36,test,Software,0,Disapproval,1,False
+347,348,test,Software,0,Blame,3,False
+778,779,test,Software,0,Accusation,2,False
+584,585,test,Quality,2,Accusation,2,False
+899,900,test,Software,0,Disapproval,1,False
+353,354,test,Software,0,No Explicit Reproach,0,False
+576,577,test,Software,0,Blame,3,False
+913,914,test,Software,0,Disapproval,1,False
+13,14,test,Software,0,No Explicit Reproach,0,False
+793,794,test,Hardware,1,Accusation,2,False
+663,664,test,Software,0,Blame,3,False
+105,106,test,Software,0,Disapproval,1,False
+536,537,test,Software,0,Disapproval,1,False
