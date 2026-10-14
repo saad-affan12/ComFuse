@@ -29,6 +29,8 @@ export const TopBar: React.FC<TopBarProps> = ({
     analyze: { title: 'Multimodal Complaint Analysis', subtitle: 'Live text & screenshot inference' },
     dashboard: { title: 'Analytics & Telemetry Dashboard', subtitle: 'Benchmark metrics & distribution insights' },
     history: { title: 'Analysis Session History', subtitle: 'Saved complaint classification records' },
+    'how-it-works': { title: 'Multimodal Neural Architecture Flow', subtitle: 'DistilBERT + ResNet-18 late bottleneck fusion' },
+    about: { title: 'About ComFuse AI Platform', subtitle: 'Enterprise customer complaint intelligence' },
   };
 
   const currentInfo = pageMeta[currentPage] || { title: 'ComFuse Intelligence', subtitle: 'Customer complaint intelligence' };
