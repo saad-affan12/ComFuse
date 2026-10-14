@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Menu,
-  Search,
   Sun,
   Moon,
   Bell,
@@ -15,22 +14,29 @@ interface TopBarProps {
   currentPage: NavPage;
   health: HealthResponse;
   onOpenMobileMenu: () => void;
-  onSearch?: (query: string) => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
+  currentPage,
   health,
   onOpenMobileMenu,
 }) => {
   const isHealthy = health.status === 'healthy';
-  const [searchQuery, setSearchQuery] = useState('');
   const [isDark, setIsDark] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
+  const pageMeta: Record<NavPage, { title: string; subtitle: string }> = {
+    analyze: { title: 'Multimodal Complaint Analysis', subtitle: 'Live text & screenshot inference' },
+    dashboard: { title: 'Analytics & Telemetry Dashboard', subtitle: 'Benchmark metrics & distribution insights' },
+    history: { title: 'Analysis Session History', subtitle: 'Saved complaint classification records' },
+  };
+
+  const currentInfo = pageMeta[currentPage] || { title: 'ComFuse Intelligence', subtitle: 'Customer complaint intelligence' };
+
   return (
-    <header className="sticky top-0 z-30 w-full bg-gradient-to-r from-[#9333ea] via-[#a855f7] to-[#7c3aed] text-white shadow-md shadow-purple-500/10 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
-      {/* Left: Mobile Menu & Search Input */}
-      <div className="flex items-center gap-4 flex-1 max-w-xl">
+    <header className="sticky top-0 z-30 w-full bg-gradient-to-r from-[#9333ea] via-[#a855f7] to-[#7c3aed] text-white shadow-md shadow-purple-500/10 px-4 sm:px-8 py-3 flex items-center justify-between transition-all">
+      {/* Left: Mobile Menu & Current Page Title */}
+      <div className="flex items-center gap-3.5">
         <button
           onClick={onOpenMobileMenu}
           className="lg:hidden p-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition"
@@ -39,16 +45,13 @@ export const TopBar: React.FC<TopBarProps> = ({
           <Menu className="h-5 w-5" />
         </button>
 
-        {/* Dribbble Pill Search Bar */}
-        <div className="relative w-full max-w-md">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/70" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
-            className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm bg-white/20 hover:bg-white/25 focus:bg-white/30 text-white placeholder-white/70 rounded-full border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40 transition placeholder:text-white/70 backdrop-blur-sm"
-          />
+        <div className="flex flex-col">
+          <span className="text-sm sm:text-base font-semibold tracking-tight text-white drop-shadow-sm">
+            {currentInfo.title}
+          </span>
+          <span className="text-[11px] text-purple-100/85 hidden sm:inline-block font-normal">
+            {currentInfo.subtitle}
+          </span>
         </div>
       </div>
 
